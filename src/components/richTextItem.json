@@ -1,0 +1,166 @@
+{
+  "item": {
+    "system": {
+      "id": "e72461f6-49d6-4308-8250-0b6e36cec15d",
+      "name": "Ondřej Chrastina",
+      "codename": "ondrej_chrastina",
+      "language": "default",
+      "type": "person",
+      "collection": "default",
+      "sitemap_locations": [],
+      "last_modified": "2022-02-14T09:33:27.4528882Z",
+      "workflow_step": "published"
+    },
+    "elements": {
+      "name": {
+        "type": "text",
+        "name": "Name",
+        "value": "Ondřej Chrastina"
+      },
+      "bio": {
+        "type": "rich_text",
+        "name": "Bio",
+        "images": {
+          "d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88": {
+            "image_id": "d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88",
+            "description": null,
+            "url": "https://assets-us-01.kc-usercontent.com:443/0f6785d7-8214-000f-62b3-d9580d692b59/44299668-b37b-4224-a115-1fd66f7d7b36/Yprofile.jpg",
+            "width": 500,
+            "height": 500
+          }
+        },
+        "links": {
+          "2b805947-7ca5-4e6a-baa5-734a91f3cfa2": {
+            "codename": "john_doe",
+            "type": "person",
+            "url_slug": "john-doe"
+          }
+        },
+        "modular_content": [
+          "ondrej_chrastina_tech",
+          "simply007_kontent_gatsby_benchmark",
+          "n5b76e971_4709_01f2_e8ea_36a9716d7b42"
+        ],
+        "value": "<p>This is Ondřej Chrastina - Developer Advocate with <a href=\"https://kontent.ai\" data-new-window=\"true\" target=\"_blank\" rel=\"noopener noreferrer\">Kentico Kontent</a>.</p>\n<figure data-asset-id=\"d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88\" data-image-id=\"d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88\"><img src=\"https://assets-us-01.kc-usercontent.com:443/0f6785d7-8214-000f-62b3-d9580d692b59/44299668-b37b-4224-a115-1fd66f7d7b36/Yprofile.jpg\" data-asset-id=\"d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88\" data-image-id=\"d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88\" alt=\"\"></figure>\n<p>He likes to do web sites. This is his latest project:</p>\n<object type=\"application/kenticocloud\" data-type=\"item\" data-rel=\"link\" data-codename=\"ondrej_chrastina_tech\"></object>\n<p><br>\nHe also likes OSS. This is his latest repository:</p>\n<object type=\"application/kenticocloud\" data-type=\"item\" data-rel=\"link\" data-codename=\"simply007_kontent_gatsby_benchmark\"></object>\n<p><br>\nOn some projects, he was cooperating with <a data-item-id=\"2b805947-7ca5-4e6a-baa5-734a91f3cfa2\" href=\"\">John Doe</a>.</p>\n<p>You could take a look at their&nbsp;<a href=\"https://google.com\" title=\"sample link\">latest project</a>.</p>\n<p>Check out also this interesting repository</p>\n<object type=\"application/kenticocloud\" data-type=\"item\" data-rel=\"component\" data-codename=\"n5b76e971_4709_01f2_e8ea_36a9716d7b42\"></object>"
+      },
+      "slug": {
+        "type": "url_slug",
+        "name": "Slug",
+        "value": "ondrej-chrastina"
+      }
+    }
+  },
+  "modular_content": {
+    "n5b76e971_4709_01f2_e8ea_36a9716d7b42": {
+      "system": {
+        "id": "5b76e971-4709-01f2-e8ea-36a9716d7b42",
+        "name": "5b76e971-4709-01f2-e8ea-36a9716d7b42",
+        "codename": "n5b76e971_4709_01f2_e8ea_36a9716d7b42",
+        "language": "default",
+        "type": "repository",
+        "collection": "default",
+        "sitemap_locations": [],
+        "last_modified": "2022-02-14T09:33:27.4528882Z"
+      },
+      "elements": {
+        "name": {
+          "type": "text",
+          "name": "Name",
+          "value": "Gatsby packages repository"
+        },
+        "slug": {
+          "type": "url_slug",
+          "name": "Slug",
+          "value": ""
+        },
+        "summary": {
+          "type": "text",
+          "name": "Summary",
+          "value": "Gatsby packages repository containing the source plugin, components package, and a bunch of Gatsby examples."
+        },
+        "url": {
+          "type": "text",
+          "name": "URL",
+          "value": "https://github.com/Kentico/kontent-gatsby-packages"
+        }
+      }
+    },
+    "ondrej_chrastina_tech": {
+      "system": {
+        "id": "884bd3cf-98b6-438e-b50d-a593a3bad623",
+        "name": "ondrej.chrastina.tech",
+        "codename": "ondrej_chrastina_tech",
+        "language": "default",
+        "type": "website",
+        "collection": "default",
+        "sitemap_locations": [],
+        "last_modified": "2020-08-14T13:18:13.858424Z",
+        "workflow_step": "published"
+      },
+      "elements": {
+        "name": {
+          "type": "text",
+          "name": "Name",
+          "value": "ondrej.chrastina.tech"
+        },
+        "summary": {
+          "type": "text",
+          "name": "Summary",
+          "value": "Ondřej Chrastina's personal site"
+        },
+        "url": {
+          "type": "text",
+          "name": "URL",
+          "value": "https://ondrej.chrastina.tech"
+        },
+        "slug": {
+          "type": "url_slug",
+          "name": "Slug",
+          "value": "ondrej-chrastina-tech"
+        },
+        "source_repository": {
+          "type": "modular_content",
+          "name": "Source repository",
+          "value": [
+            "simply007_simply007_github_io"
+          ]
+        }
+      }
+    },
+    "simply007_kontent_gatsby_benchmark": {
+      "system": {
+        "id": "16ec0ca3-8525-4154-ba84-0bb7ec712bf6",
+        "name": "Simply007/kontent-gatsby-benchmark",
+        "codename": "simply007_kontent_gatsby_benchmark",
+        "language": "default",
+        "type": "repository",
+        "collection": "default",
+        "sitemap_locations": [],
+        "last_modified": "2020-08-14T12:19:40.5439642Z",
+        "workflow_step": "published"
+      },
+      "elements": {
+        "name": {
+          "type": "text",
+          "name": "Name",
+          "value": "Simply007/kontent-gatsby-benchmark"
+        },
+        "summary": {
+          "type": "text",
+          "name": "Summary",
+          "value": "Example site for Kontent as a source for \"Will It Build\". Should/Will be generalized into e.g. a theme."
+        },
+        "url": {
+          "type": "text",
+          "name": "URL",
+          "value": "https://github.com/Simply007/kontent-gatsby-benchmark"
+        },
+        "slug": {
+          "type": "url_slug",
+          "name": "Slug",
+          "value": "simply007-kontent-gatsby-benchmark"
+        }
+      }
+    }
+  }
+}
