@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { Elements, IContentItem, browserParser, createRichTextObjectResolver, IRichTextObjectItem } from "@kentico/kontent-delivery";
+import { Elements, IContentItem, browserParser, createRichTextObjectResolver, IRichTextObjectItem, BrowserParser } from "@kentico/kontent-delivery";
 
 interface ReactRichTextElementProps {
     element: Elements.RichTextElement,
@@ -8,12 +8,23 @@ interface ReactRichTextElementProps {
 
 function createReactElements(element: Elements.RichTextElement, linkedItems: IContentItem[], currentItem: IRichTextObjectItem): ReactElement {
 
-    console.log(currentItem.type);
+    const attrs = Object.assign({}, ...currentItem.attributes.filter(attr => attr.name !== 'sdk-elem-id').map(attr => ({ [attr.name]: attr.value })))
+    attrs.key = currentItem.attributes.find(attr => attr.name === 'sdk-elem-id')?.value;
+
+    let children: ReactElement | ReactElement[] | undefined = undefined;
+
+    if (currentItem.children.length > 0) {
+        children = currentItem.children.map(child => createReactElements(element, linkedItems, child))
+    // } else if (currentItem.data.html) { // Use this one  consult possibilities with Richard // loosing link on "This is Ondřej Chrastina - Developer Advocate with Kentico Kontent.""
+    //     children = currentItem.data.html;
+    } else if (currentItem.data.text) {
+        children = currentItem.data.text;
+    }
 
     return React.createElement(
-        currentItem.tag,
-        Object.assign({}, ...currentItem.attributes.map(attr => ({ [attr.name]: attr.value }))),
-        currentItem.children.length > 0 ? currentItem.children.map(child => createReactElements(element, linkedItems, child)) : undefined
+        currentItem.type === "root" ? "div" : currentItem.tag, // https://github.com/Kentico/kontent-delivery-sdk-js/issues/339
+        attrs,
+        children
     );
 }
 
@@ -21,7 +32,7 @@ function ReactRichTextElement({ element, linkedItems }: ReactRichTextElementProp
     const resultObject = createRichTextObjectResolver().resolveRichText({
         element: element,
         linkedItems: linkedItems,
-        cleanSdkIds: true
+        cleanSdkIds: false
     });
 
     const root = createReactElements(element, linkedItems, resultObject.data);
