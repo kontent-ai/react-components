@@ -15,8 +15,13 @@ test('Parse rich text', () => {
 
 
   const { debug } = render(<ReactRichTextElement
-    element={response.item.elements["bio"] as Elements.RichTextElement}
-    linkedItems={linkedItemsHelper.convertLinkedItemsToArray(response.linkedItems)}
+    richTextElement={response.item.elements["bio"]}
+    linkedItems={response.linkedItems}
+    resolveLinkedItem={undefined}
+    resolveImage={undefined}
+    resolveLink={undefined}
+    resolveDomNode={undefined}
+    className={undefined}
   />);
 
   debug();

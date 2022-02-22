@@ -1,84 +1,80 @@
-import React, { ReactElement } from 'react'
-import { Elements, IContentItem, browserParser, createRichTextObjectResolver, IRichTextObjectItem, BrowserParser } from "@kentico/kontent-delivery";
+import parseHTML, { domToReact, DOMNode, HTMLReactParserOptions } from "html-react-parser";
 
-interface ReactRichTextElementProps {
-    element: Elements.RichTextElement,
-    linkedItems: IContentItem[]
+const IMAGE_ID_ATTRIBUTE_IDENTIFIER = "data-image-id";
+const LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER = "data-item-id";
+
+const isLinkedItem = (domNode: DOMNode): boolean => {
+    if (domNode instanceof Element) {
+        return domNode.tagName === "object" && domNode.attributes.getNamedItem("type")?.value === "application/kenticocloud";
+    }
+    return false;
 }
 
-function createReactElements(element: Elements.RichTextElement, linkedItems: IContentItem[], currentItem: IRichTextObjectItem): ReactElement {
+function isImage(domNode: DOMNode): boolean {
+    if (domNode instanceof Element) {
+        return domNode.tagName === "object" && domNode.attributes.getNamedItem(IMAGE_ID_ATTRIBUTE_IDENTIFIER)?.value !== "undefined";
+    }
+    return false;
+}
 
-    const attrs = Object.assign({}, ...currentItem.attributes.filter(attr => attr.name !== 'sdk-elem-id').map(attr => ({ [attr.name]: attr.value })))
-    attrs.key = currentItem.attributes.find(attr => attr.name === 'sdk-elem-id')?.value;
+function isLink(domNode: DOMNode) {
+    if (domNode instanceof Element) {
+        return domNode.tagName === "a" && domNode.attributes.getNamedItem(IMAGE_ID_ATTRIBUTE_IDENTIFIER)?.value !== "undefined";
+    }
+    return false;
+}
 
-    let children: ReactElement | ReactElement[] | undefined = undefined;
+// @ts-ignore
+function replaceNode(domNode: DOMNode, richTextElement, linkedItems, resolveLinkedItem, resolveImage, resolveLink, resolveDomNode, className ) {
 
-    if (currentItem.children.length > 0) {
-        children = currentItem.children.map(child => createReactElements(element, linkedItems, child))
-    // } else if (currentItem.data.html) { // Use this one  consult possibilities with Richard // loosing link on "This is Ondřej Chrastina - Developer Advocate with Kentico Kontent.""
-    //     children = currentItem.data.html;
-    } else if (currentItem.data.text) {
-        children = currentItem.data.text;
+    const { images, links } = richTextElement;
+    if (resolveLinkedItem && linkedItems) {
+        if (isLinkedItem(domNode)) {
+            const node = domNode as unknown as Element;
+            const codeName = node?.attributes.getNamedItem("data-codename")?.value;
+            const linkedItem = codeName ? linkedItems[codeName] : undefined;
+            return resolveLinkedItem(linkedItem, domNode, domToReact);
+        }
     }
 
-    return React.createElement(
-        currentItem.type === "root" ? "div" : currentItem.tag, // https://github.com/Kentico/kontent-delivery-sdk-js/issues/339
-        attrs,
-        children
+    if (resolveImage && images) {
+        if (isImage(domNode)) {
+            const node = domNode as unknown as Element;
+
+            const imageId = node?.attributes.getNamedItem(IMAGE_ID_ATTRIBUTE_IDENTIFIER)?.value;
+            const image = images.find((image: { imageId: string }) => image.imageId === imageId);
+            return resolveImage(image, domNode, domToReact);
+        }
+    }
+
+    if (resolveLink && links) {
+        if (isLink(domNode)) {
+            const node = domNode as unknown as Element;
+
+            const linkId = node?.attributes.getNamedItem(LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER)?.value;
+            const link = links.find((link: { linkId: string }) => link.linkId === linkId);
+            return resolveLink(link, domNode, domToReact);
+        }
+    }
+
+    if (resolveDomNode) {
+        return resolveDomNode(domNode, domToReact);
+    }
+}
+
+// @ts-ignore
+function RichTextComponent({ richTextElement, linkedItems, resolveLinkedItem, resolveImage, resolveLink, resolveDomNode, className }): JSX.Element {
+    const cleanedValue = richTextElement.value.replace(/(\n|\r)+/, "");
+    const result = parseHTML(cleanedValue, {
+        // @ts-ignore
+        replace: (domNode) => replaceNode(domNode, richTextElement, linkedItems, resolveLinkedItem, resolveImage, resolveLink, resolveDomNode),
+    });
+
+    return (
+        <div className={className} >
+            {result}
+        </div>
     );
 }
 
-function ReactRichTextElement({ element, linkedItems }: ReactRichTextElementProps) {
-    const resultObject = createRichTextObjectResolver().resolveRichText({
-        element: element,
-        linkedItems: linkedItems,
-        cleanSdkIds: false
-    });
-
-    const root = createReactElements(element, linkedItems, resultObject.data);
-
-    return root;
-
-    // let elementCounter = 0;
-    // let genericElementCounter = 0;
-    // let urlResolverCounter = 0;
-    // let imageResolverCounter = 0;
-    // let contentItemResolverCounter = 0;
-    // return = browserParser.parse(
-    //     element.value,
-    //     element,
-    //     {
-    //         elementResolver: (element) => {
-    //             element.setAttribute("data-kontent-element-identification", `elementResolver ${elementCounter++}`);
-    //         },
-    //         genericElementResolver: (element) => {
-    //             // console.log(element);
-    //             // element.setAttribute("data-kontent-generic-element-identification", `genericElementResolver ${genericElementCounter++}`);
-    //         },
-    //         urlResolver: (element, linkId, linkText, link) => {
-    //             // element.setAttribute("data-kontent-url-identification", `urlResolver ${urlResolverCounter++}`);
-
-    //             // console.log(element);
-    //             // console.log(linkId);
-    //             // console.log(linkText);
-    //             // console.log(link);
-
-    //         },
-    //         imageResolver: (element, imageId, image) => {
-    //             // element.setAttribute("data-kontent-image-identification", `genericElementResolver ${imageResolverCounter++}`);
-    //             // console.log(element);
-    //             // console.log(imageId);
-    //             // console.log(image);
-    //         },
-    //         contentItemResolver: (element, linkedItemCodename, linkedItemIndex, linkedItem?) => {
-    //             // element.setAttribute("data-kontent-content-item-identification", `genericElementResolver ${contentItemResolverCounter++}`);
-    //             // console.log(element);
-    //             // console.log(linkedItemCodename);
-    //             // console.log(linkedItemIndex);
-    //             // console.log(linkedItem);
-    //         }
-    //     },
-    //     linkedItems);
-}
-
-export default ReactRichTextElement
+export default RichTextComponent;
