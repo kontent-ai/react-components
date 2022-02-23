@@ -1,46 +1,83 @@
-# Getting Started with Create React App
+# React Kontent Components
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The package containing React components useful when processing Kontent data to the site.
 
-## Available Scripts
+## Install
 
-In the project directory, you can run:
+```sh
+npm install @simply007org/kontent-react-components
+```
 
-### `npm start`
+### Typescript
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Components exports their typescript definitions so that you know what data format you need to provide via props and what data format expect from function prop callback arguments.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Rich text element component
 
-### `npm test`
+Rich text elements from Kontent could be resolved to React components using "html-react-parser" (based on[this article](https://rshackleton.co.uk/articles/rendering-kentico-cloud-linked-content-items-with-react-components-in-gatsby))
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This package should make the usage easier. Basically by loading the rich text data and use these components to provide this data and resolution functions.
 
-### `npm run build`
+> More showcases could be found in [RichTextElement.spec.tsx](./tests/components/rich-text-element/RichTextElement.spec.tsx).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```tsx
+import { createDeliveryClient, Elements } from '@kentico/kontent-delivery';
+import { isComponent, isLinkedItem, RichTextElement } from '@simply007org/kontent-react-components';
+import { Element as DomHandlerElement } from 'domhandler';
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+// ...
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+const client =  createDeliveryClient({
+    projectId: '<YOUR PROJECT ID>'
+});
 
-### `npm run eject`
+const response = await client.item("<YOUR ITEM CODENAME>)
+    .toPromise();
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+// ...
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<RichTextElement
+    richTextElement={response.item.elements["bio"] as Elements.RichTextElement}
+    linkedItems={response.linkedItems}
+    resolveLinkedItem={(linkedItem, domNode) => {
+        if (isComponent(domNode)) {
+            return (
+                <>
+                    <h1>Component</h1>
+                    <pre>{JSON.stringify(linkedItem, undefined, 2)}</pre>;
+                </>
+            );
+        }
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+        if (isLinkedItem(domNode)) {
+            return (
+                <>
+                    <h1>Linked item</h1>
+                    <pre>{JSON.stringify(linkedItem, undefined, 2)}</pre>;
+                </>
+            );
+        }
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+        throw new Error("Unknown type of the linked item's dom node");
+    }}
+    resolveImage={(image, domNode): JSX.Element => (
+        <img
+            src={image.url}
+            alt={image.description ? image.description : image.imageId}
+            width="200"
+        />
+    )}
+    resolveLink={(link, domNode, domToReact): JSX.Element => (
+        <a href={`/${link.type}/${link.urlSlug}`}>
+            {domToReact(domNode.children)}
+        </a>
+    )}
+    resolveDomNode={(domNode, domToReact) => {
+        if (domNode instanceof DomHandlerElement && domNode.name === 'table') {
+            return <div className="table-wrapper">{domToReact([domNode])}</div>;
+        }
+    }}
+    className="testClassName"
+/>
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```

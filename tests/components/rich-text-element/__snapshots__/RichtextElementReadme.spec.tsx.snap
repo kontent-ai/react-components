@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RichTextElement/> readme code samples should resolve without fail 1`] = `
+<div
+  className="testClassName"
+>
+  <p>
+    This is Ondřej Chrastina - Developer Advocate with 
+    <a
+      data-new-window="true"
+      href="https://kontent.ai"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      Kentico Kontent
+    </a>
+    .
+  </p>
+  <img
+    alt="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
+    src="https://assets-us-01.kc-usercontent.com:443/0f6785d7-8214-000f-62b3-d9580d692b59/44299668-b37b-4224-a115-1fd66f7d7b36/Yprofile.jpg"
+    width="200"
+  />
+  
+
+  <p>
+    He likes to do web sites. This is his latest project:
+  </p>
+  
+
+  <h1>
+    Linked item
+  </h1>
+  <pre>
+    {
+  "elements": {
+    "name": {
+      "name": "Name",
+      "type": "text",
+      "value": "ondrej.chrastina.tech"
+    },
+    "summary": {
+      "name": "Summary",
+      "type": "text",
+      "value": "Ondřej Chrastina's personal site"
+    },
+    "url": {
+      "name": "URL",
+      "type": "text",
+      "value": "https://ondrej.chrastina.tech"
+    },
+    "slug": {
+      "name": "Slug",
+      "type": "url_slug",
+      "value": "ondrej-chrastina-tech"
+    },
+    "source_repository": {
+      "name": "Source repository",
+      "type": "modular_content",
+      "value": [
+        "simply007_simply007_github_io"
+      ],
+      "linkedItems": []
+    }
+  },
+  "system": {
+    "codename": "ondrej_chrastina_tech",
+    "collection": "default",
+    "id": "884bd3cf-98b6-438e-b50d-a593a3bad623",
+    "language": "default",
+    "lastModified": "2020-08-14T13:18:13.858424Z",
+    "name": "ondrej.chrastina.tech",
+    "sitemapLocations": [],
+    "type": "website",
+    "workflowStep": "published"
+  }
+}
+  </pre>
+  ;
+  
+
+  <p>
+    <br />
+    
+He also likes OSS. This is his latest repository:
+  </p>
+  
+
+  <h1>
+    Linked item
+  </h1>
+  <pre>
+    {
+  "elements": {
+    "name": {
+      "name": "Name",
+      "type": "text",
+      "value": "Simply007/kontent-gatsby-benchmark"
+    },
+    "summary": {
+      "name": "Summary",
+      "type": "text",
+      "value": "Example site for Kontent as a source for \\"Will It Build\\". Should/Will be generalized into e.g. a theme."
+    },
+    "url": {
+      "name": "URL",
+      "type": "text",
+      "value": "https://github.com/Simply007/kontent-gatsby-benchmark"
+    },
+    "slug": {
+      "name": "Slug",
+      "type": "url_slug",
+      "value": "simply007-kontent-gatsby-benchmark"
+    }
+  },
+  "system": {
+    "codename": "simply007_kontent_gatsby_benchmark",
+    "collection": "default",
+    "id": "16ec0ca3-8525-4154-ba84-0bb7ec712bf6",
+    "language": "default",
+    "lastModified": "2020-08-14T12:19:40.5439642Z",
+    "name": "Simply007/kontent-gatsby-benchmark",
+    "sitemapLocations": [],
+    "type": "repository",
+    "workflowStep": "published"
+  }
+}
+  </pre>
+  ;
+  
+
+  <p>
+    <br />
+    
+On some projects, he was cooperating with 
+    <a
+      href="/person/john-doe"
+    >
+      John Doe
+    </a>
+    .
+  </p>
+  
+
+  <p>
+    You could take a look at their 
+    <a
+      href="https://google.com"
+      title="sample link"
+    >
+      latest project
+    </a>
+    .
+  </p>
+  
+
+  <p>
+    Check out also this interesting repository
+  </p>
+  
+
+  <h1>
+    Component
+  </h1>
+  <pre>
+    {
+  "elements": {
+    "name": {
+      "name": "Name",
+      "type": "text",
+      "value": "Gatsby packages repository"
+    },
+    "slug": {
+      "name": "Slug",
+      "type": "url_slug",
+      "value": ""
+    },
+    "summary": {
+      "name": "Summary",
+      "type": "text",
+      "value": "Gatsby packages repository containing the source plugin, components package, and a bunch of Gatsby examples."
+    },
+    "url": {
+      "name": "URL",
+      "type": "text",
+      "value": "https://github.com/Kentico/kontent-gatsby-packages"
+    }
+  },
+  "system": {
+    "codename": "n5b76e971_4709_01f2_e8ea_36a9716d7b42",
+    "collection": "default",
+    "id": "5b76e971-4709-01f2-e8ea-36a9716d7b42",
+    "language": "default",
+    "lastModified": "2022-02-14T09:33:27.4528882Z",
+    "name": "5b76e971-4709-01f2-e8ea-36a9716d7b42",
+    "sitemapLocations": [],
+    "type": "repository",
+    "workflowStep": null
+  }
+}
+  </pre>
+  ;
+</div>
+`;

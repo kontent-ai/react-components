@@ -143,7 +143,7 @@ describe('<RichTextElement/>', () => {
       <RichTextElement
         richTextElement={complexItemResponse.item.elements["bio"] as Elements.RichTextElement}
         linkedItems={complexItemResponse.linkedItems}
-        resolveLinkedItem={(linkedItem, domNode): JSX.Element => {
+        resolveLinkedItem={(linkedItem, domNode) => {
           if (isComponent(domNode)) {
             return (
               <>
@@ -162,7 +162,7 @@ describe('<RichTextElement/>', () => {
             );
           }
 
-          throw new Error("Unknow type of the linked item's dom node");
+          throw new Error("Unknown type of the linked item's dom node");
         }}
       />,
     );
