@@ -1,7 +1,28 @@
 {
   "name": "@simply007org/kontent-react-components",
-  "version": "0.1.0",
+  "version": "0.0.2",
+  "description": "The package containing React components useful when processing Kontent data to the site.",
+  "repository": "https://github.com/Simply007/kontent-react-packages.git",
+  "homepage": "https://github.com/Simply007/kontent-react-packages#readme",
+  "author": {
+    "name": "Ondřej Chrastina",
+    "email": "chrastina.ondra@gmail.com",
+    "url": "https://ondrej.chrastina.dev"
+  },
+  "license": "MIT",
   "main": "dist/index.js",
+  "private": false,
+  "keywords": [
+    "kontent",
+    "react",
+    "headlesscms",
+    "cms",
+    "headless",
+    "saas",
+    "react-components",
+    "react-component",
+    "react-package"
+  ],
   "scripts": {
     "lint": "eslint",
     "test": "jest",
