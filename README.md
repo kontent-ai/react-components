@@ -14,7 +14,7 @@ Components exports their typescript definitions so that you know what data forma
 
 ## Rich text element component
 
-Rich text elements from Kontent could be resolved to React components using "html-react-parser" (based on[this article](https://rshackleton.co.uk/articles/rendering-kentico-cloud-linked-content-items-with-react-components-in-gatsby))
+Rich text elements from Kontent could be resolved to React components using [html-react-parser](https://www.npmjs.com/package/html-react-parser) (based on [this article](https://rshackleton.co.uk/articles/rendering-kentico-cloud-linked-content-items-with-react-components-in-gatsby))
 
 This package should make the usage easier. Basically by loading the rich text data and use these components to provide this data and resolution functions.
 
