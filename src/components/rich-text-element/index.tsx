@@ -1,26 +1,27 @@
 import parseHTML, { domToReact, DOMNode, HTMLReactParserOptions } from "html-react-parser";
 import { Elements, IContentItem, IContentItemsContainer, ILink, IRichTextImage } from '@kentico/kontent-delivery';
+import { Element as DomHandlerElement } from "domhandler";
 
 const IMAGE_ID_ATTRIBUTE_IDENTIFIER = "data-image-id";
 const LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER = "data-item-id";
 
 const isLinkedItem = (domNode: DOMNode): boolean => {
-    if (domNode instanceof Element) {
-        return domNode.tagName === "object" && domNode.attributes.getNamedItem("type")?.value === "application/kenticocloud";
+    if (domNode instanceof DomHandlerElement) {
+        return domNode.tagName === "object" && domNode.attributes.find(attr => attr.name === "type")?.value === "application/kenticocloud";
     }
     return false;
 }
 
 const isImage = (domNode: DOMNode): boolean => {
-    if (domNode instanceof Element) {
-        return domNode.tagName === "figure" && domNode.attributes.getNamedItem(IMAGE_ID_ATTRIBUTE_IDENTIFIER)?.value !== "undefined";
+    if (domNode instanceof DomHandlerElement) {
+        return domNode.tagName === "figure" && domNode.attributes.find(attr => attr.name === IMAGE_ID_ATTRIBUTE_IDENTIFIER)?.value !== "undefined";
     }
     return false;
 }
 
 const isLinkedItemLink = (domNode: DOMNode) => {
-    if (domNode instanceof Element) {
-        return domNode.tagName === "a" && domNode.attributes.getNamedItem(LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER)?.value !== "undefined";
+    if (domNode instanceof DomHandlerElement) {
+        return domNode.tagName === "a" && domNode.attributes.find(attr => attr.name === LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER)?.value !== "undefined";
     }
     return false;
 }
@@ -28,30 +29,30 @@ const isLinkedItemLink = (domNode: DOMNode) => {
 // TODO encapsulate domNode and domtoReact so subtype and ideally sub-property
 type ResolverLinkedItemType = (
     linkedItem: IContentItem | undefined,
-    domNode: DOMNode,
+    domNode: DomHandlerElement,
     domToReact: (
         nodes: DOMNode[],
         options?: HTMLReactParserOptions | undefined
     ) => string | JSX.Element | JSX.Element[]
-) => JSX.Element | JSX.Element[]
+) => JSX.Element | JSX.Element[] | undefined | null | false
 
 type ResolveImageType = (
-    image: IRichTextImage | undefined,
-    domNode: DOMNode,
+    image: IRichTextImage,
+    domNode: DomHandlerElement,
     domToReact: (
         nodes: DOMNode[],
         options?: HTMLReactParserOptions | undefined
     ) => string | JSX.Element | JSX.Element[]
-) => JSX.Element | JSX.Element[]
+) => JSX.Element | JSX.Element[] | undefined | null | false
 
 type ResolveLinkType = (
-    link: ILink | undefined,
-    domNode: DOMNode,
+    link: ILink,
+    domNode: DomHandlerElement,
     domToReact: (
         nodes: DOMNode[],
         options?: HTMLReactParserOptions | undefined
     ) => string | JSX.Element | JSX.Element[]
-) => JSX.Element | JSX.Element[]
+) => JSX.Element | JSX.Element[] | undefined | null | false
 
 type ResolveDomNodeType = (
     domNode: DOMNode,
@@ -59,7 +60,7 @@ type ResolveDomNodeType = (
         nodes: DOMNode[],
         options?: HTMLReactParserOptions | undefined
     ) => string | JSX.Element | JSX.Element[]
-) => JSX.Element | JSX.Element[]
+) => JSX.Element | JSX.Element[] | undefined | null | false
 
 
 const replaceNode = (
@@ -75,30 +76,33 @@ const replaceNode = (
     const { images, links } = richTextElement;
     if (resolveLinkedItem && linkedItems) {
         if (isLinkedItem(domNode)) {
-            const node = domNode as unknown as Element;
-            const codeName = node?.attributes.getNamedItem("data-codename")?.value;
+            const node = domNode as DomHandlerElement;
+            const codeName = node?.attributes.find(attr => attr.name === "data-codename")?.value;
             const linkedItem = codeName ? linkedItems[codeName] : undefined;
-            return resolveLinkedItem(linkedItem, domNode, domToReact);
+            return resolveLinkedItem(linkedItem, node, domToReact);
         }
     }
 
     if (resolveImage && images) {
         if (isImage(domNode)) {
-            const node = domNode as unknown as Element;
-
-            const imageId = node?.attributes.getNamedItem(IMAGE_ID_ATTRIBUTE_IDENTIFIER)?.value;
+            const node = domNode as DomHandlerElement;
+            const imageId = node?.attributes.find(attr => attr.name === IMAGE_ID_ATTRIBUTE_IDENTIFIER)?.value;
             const image = images.find((image: { imageId: string }) => image.imageId === imageId);
-            return resolveImage(image, domNode, domToReact);
+            if (image) {
+                return resolveImage(image, node, domToReact);
+            }
         }
     }
 
     if (resolveLink && links) {
         if (isLinkedItemLink(domNode)) {
-            const node = domNode as unknown as Element;
+            const node = domNode as DomHandlerElement;
 
-            const linkId = node?.attributes.getNamedItem(LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER)?.value;
+            const linkId = node?.attributes.find(attr => attr.name === LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER)?.value;
             const link = links.find((link: { linkId: string }) => link.linkId === linkId);
-            return resolveLink(link, domNode, domToReact);
+            if (link) {
+                return resolveLink(link, node, domToReact);
+            }
         }
     }
 
