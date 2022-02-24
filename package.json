@@ -1,9 +1,12 @@
 {
   "name": "@simply007org/kontent-react-components",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "The package containing React components useful when processing Kontent data to the site.",
-  "repository": "https://github.com/Simply007/kontent-react-packages.git",
-  "homepage": "https://github.com/Simply007/kontent-react-packages#readme",
+  "repository": "https://github.com/Simply007/kontent-react-components.git",
+  "homepage": "https://github.com/Simply007/kontent-react-components#readme",
+  "bugs": {
+    "url": "https://github.com/Simply007/kontent-react-components/issues"
+  },
   "author": {
     "name": "Ondřej Chrastina",
     "email": "chrastina.ondra@gmail.com",
