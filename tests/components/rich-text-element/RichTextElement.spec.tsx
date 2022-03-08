@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import TestRenderer from 'react-test-renderer';
-import { createDeliveryClient, Elements } from '@kentico/kontent-delivery';
+import { createDeliveryClient, Elements, ElementType } from '@kentico/kontent-delivery';
 import richTextItem from './complexRichTextItem.json';
 import { Element as ParserElement, domToReact } from 'html-react-parser';
 import { RichTextElement } from '../../../src';
@@ -40,11 +40,19 @@ describe('<RichTextElement/>', () => {
   const complexItemResponse = mockClient.item("dummyItem")
     .map(richTextItem);
 
+  const emptyRichText = {
+    value: '<p><br></p>',
+    type: ElementType.RichText,
+    name: "dummy",
+    links: [],
+    images: [],
+    linkedItems: [],
+    linkedItemCodenames: []
+  }
+
   it('Empty rich-text value - render properly', () => {
     const testRenderer = TestRenderer.create(
-      <RichTextElement richTextElement={{
-        value: "<p><br></p>"
-      }}
+      <RichTextElement richTextElement={emptyRichText}
       />,
     );
     expect(testRenderer.toJSON()).toMatchSnapshot();
@@ -54,6 +62,7 @@ describe('<RichTextElement/>', () => {
     const testRenderer = TestRenderer.create(
       <RichTextElement
         richTextElement={{
+          ... emptyRichText,
           value: "<p>Lorem ipsum with <strong>bold text</strong></p>"
         }}
         resolveDomNode={(domNode, domToReact) => {
@@ -113,6 +122,7 @@ describe('<RichTextElement/>', () => {
     const simpleValueRenderer = TestRenderer.create(
       <RichTextElement
         richTextElement={{
+          ... emptyRichText,
           value: '<p>This is the page text.</p><ul><li><a data-item-id="1abb6bf1-1e29-4deb-bb0c-b5928ffb0cc9" href="">Test link</a></li></ul>',
           links: [
             {
@@ -142,7 +152,6 @@ describe('<RichTextElement/>', () => {
     const testRenderer = TestRenderer.create(
       <RichTextElement
         richTextElement={complexItemResponse.item.elements["bio"] as Elements.RichTextElement}
-        linkedItems={complexItemResponse.linkedItems}
         resolveLinkedItem={(linkedItem, domNode) => {
           if (isComponent(domNode)) {
             return (

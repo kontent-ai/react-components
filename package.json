@@ -1,6 +1,6 @@
 {
   "name": "@simply007org/kontent-react-components",
-  "version": "0.0.3",
+  "version": "0.0.4-0",
   "description": "The package containing React components useful when processing Kontent data to the site.",
   "repository": "https://github.com/Simply007/kontent-react-components.git",
   "homepage": "https://github.com/Simply007/kontent-react-components#readme",
@@ -33,7 +33,7 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@kentico/kontent-delivery": "^11.4.0",
+    "@kentico/kontent-delivery": "^11.5.0-0",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "html-react-parser": "^1.4.8",

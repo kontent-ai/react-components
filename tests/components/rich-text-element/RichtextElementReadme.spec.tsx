@@ -17,7 +17,6 @@ describe('<RichTextElement/> readme code samples', () => {
         const testRenderer = TestRenderer.create(
             <RichTextElement
                 richTextElement={response.item.elements["bio"] as Elements.RichTextElement}
-                linkedItems={response.linkedItems}
                 resolveLinkedItem={(linkedItem, domNode) => {
                     if (isComponent(domNode)) {
                         return (
