@@ -1,6 +1,6 @@
 {
   "name": "@simply007org/kontent-react-components",
-  "version": "0.0.4-0",
+  "version": "0.0.4-1",
   "description": "The package containing React components useful when processing Kontent data to the site.",
   "repository": "https://github.com/Simply007/kontent-react-components.git",
   "homepage": "https://github.com/Simply007/kontent-react-components#readme",
@@ -30,6 +30,7 @@
     "lint": "eslint",
     "test": "jest",
     "build": "tsc",
+    "build:prod": "npm run build -- --sourceMap false",
     "watch": "tsc -w"
   },
   "dependencies": {

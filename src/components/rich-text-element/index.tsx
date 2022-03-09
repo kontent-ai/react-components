@@ -110,9 +110,6 @@ const replaceNode = (
     }
 }
 
-// TODO export?
-
-
 interface IReactRichTextElementProps {
     richTextElement: Elements.RichTextElement,
     resolveLinkedItem?: ResolverLinkedItemType;
