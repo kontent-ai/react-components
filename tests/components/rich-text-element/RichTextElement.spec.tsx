@@ -91,6 +91,7 @@ describe('<RichTextElement/>', () => {
     const testRenderer = TestRenderer.create(
       <RichTextElement
         richTextElement={complexItemResponse.item.elements["bio"] as Elements.RichTextElement}
+        
         resolveImage={(image, domNode): JSX.Element => (
           <img
             src={image.url}

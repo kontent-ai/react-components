@@ -66,18 +66,24 @@ type ResolveDomNodeType = (
 const replaceNode = (
     domNode: DOMNode,
     richTextElement: Elements.RichTextElement,
+    linkedItems?: IContentItemsContainer,
     resolveLinkedItem?: ResolverLinkedItemType,
     resolveImage?: ResolveImageType,
     resolveLink?: ResolveLinkType,
     resolveDomNode?: ResolveDomNodeType,
 ): JSX.Element | object | void | undefined | null | false => {
 
+    const allLinkedItems =
+        linkedItems && Object.values(linkedItems).length > 0
+            ? richTextElement.linkedItems.concat(Object.values(linkedItems))
+            : richTextElement.linkedItems;
+
     const { images, links } = richTextElement;
     if (resolveLinkedItem && richTextElement.linkedItems) {
         if (isLinkedItem(domNode)) {
             const node = domNode as DomHandlerElement;
             const codeName = node?.attributes.find(attr => attr.name === "data-codename")?.value;
-            const linkedItem = codeName ? richTextElement.linkedItems.find(linkedItem => linkedItem.system.codename === codeName) : undefined;
+            const linkedItem = codeName ? allLinkedItems.find(item => item.system.codename === codeName) : undefined;
             return resolveLinkedItem(linkedItem, node, domToReact);
         }
     }
@@ -112,6 +118,11 @@ const replaceNode = (
 
 interface IReactRichTextElementProps {
     richTextElement: Elements.RichTextElement,
+    /**
+     * Array of linked items retrieved from `modular_content` part of the response.
+     * Not all items might be contained in the `richTextElement.linkedItems`.
+     */
+    linkedItems?: IContentItemsContainer;
     resolveLinkedItem?: ResolverLinkedItemType;
     resolveImage?: ResolveImageType;
     resolveLink?: ResolveLinkType;
@@ -121,6 +132,7 @@ interface IReactRichTextElementProps {
 
 const RichTextElement: React.FC<IReactRichTextElementProps> = ({
     richTextElement,
+    linkedItems,
     resolveLinkedItem,
     resolveImage,
     resolveLink,
@@ -129,7 +141,7 @@ const RichTextElement: React.FC<IReactRichTextElementProps> = ({
 }) => {
     const cleanedValue = richTextElement.value.replace(/(\n|\r)+/, "");
     const result = parseHTML(cleanedValue, {
-        replace: (domNode) => replaceNode(domNode, richTextElement, resolveLinkedItem, resolveImage, resolveLink, resolveDomNode),
+        replace: (domNode) => replaceNode(domNode, richTextElement, linkedItems, resolveLinkedItem, resolveImage, resolveLink, resolveDomNode),
     });
 
     return (
