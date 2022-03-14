@@ -1,0 +1,121 @@
+{
+  "item": {
+    "system": {
+      "id": "42734608-eef3-4188-b7a7-c428355d019c",
+      "name": "Sample page",
+      "codename": "sample_page",
+      "language": "default",
+      "type": "page",
+      "collection": "default",
+      "sitemap_locations": [],
+      "last_modified": "2022-03-10T14:40:06.4077772Z",
+      "workflow_step": "published"
+    },
+    "elements": {
+      "content": {
+        "type": "rich_text",
+        "name": "Content",
+        "images": {},
+        "links": {},
+        "modular_content": [
+          "n6e299df7_23bc_0128_7a7a_8934e0c4bb94"
+        ],
+        "value": "<object type=\"application/kenticocloud\" data-type=\"item\" data-rel=\"component\" data-codename=\"n6e299df7_23bc_0128_7a7a_8934e0c4bb94\"></object>"
+      }
+    }
+  },
+  "modular_content": {
+    "c8e83d54_8dd8_01fa_5096_5e5727e51812": {
+      "system": {
+        "id": "c8e83d54-8dd8-01fa-5096-5e5727e51812",
+        "name": "c8e83d54-8dd8-01fa-5096-5e5727e51812",
+        "codename": "c8e83d54_8dd8_01fa_5096_5e5727e51812",
+        "language": "default",
+        "type": "column",
+        "collection": "default",
+        "sitemap_locations": [],
+        "last_modified": "2022-03-10T14:40:06.4077772Z"
+      },
+      "elements": {
+        "content": {
+          "type": "rich_text",
+          "name": "Content",
+          "images": {},
+          "links": {},
+          "modular_content": [],
+          "value": "<p>First column</p>"
+        }
+      }
+    },
+    "n191455ea_88bb_0145_43f6_80ee69e81c0b": {
+      "system": {
+        "id": "191455ea-88bb-0145-43f6-80ee69e81c0b",
+        "name": "191455ea-88bb-0145-43f6-80ee69e81c0b",
+        "codename": "n191455ea_88bb_0145_43f6_80ee69e81c0b",
+        "language": "default",
+        "type": "column",
+        "collection": "default",
+        "sitemap_locations": [],
+        "last_modified": "2022-03-10T14:40:06.4077772Z"
+      },
+      "elements": {
+        "content": {
+          "type": "rich_text",
+          "name": "Content",
+          "images": {},
+          "links": {},
+          "modular_content": [],
+          "value": "<p>Second column</p>"
+        }
+      }
+    },
+    "n6e299df7_23bc_0128_7a7a_8934e0c4bb94": {
+      "system": {
+        "id": "6e299df7-23bc-0128-7a7a-8934e0c4bb94",
+        "name": "6e299df7-23bc-0128-7a7a-8934e0c4bb94",
+        "codename": "n6e299df7_23bc_0128_7a7a_8934e0c4bb94",
+        "language": "default",
+        "type": "row",
+        "collection": "default",
+        "sitemap_locations": [],
+        "last_modified": "2022-03-10T14:40:06.4077772Z"
+      },
+      "elements": {
+        "columns": {
+          "type": "rich_text",
+          "name": "Columns",
+          "images": {},
+          "links": {},
+          "modular_content": [
+            "c8e83d54_8dd8_01fa_5096_5e5727e51812",
+            "n191455ea_88bb_0145_43f6_80ee69e81c0b",
+            "n79d392cf_9396_01ce_e843_bae36dba8301"
+          ],
+          "value": "<object type=\"application/kenticocloud\" data-type=\"item\" data-rel=\"component\" data-codename=\"c8e83d54_8dd8_01fa_5096_5e5727e51812\"></object>\n<object type=\"application/kenticocloud\" data-type=\"item\" data-rel=\"component\" data-codename=\"n191455ea_88bb_0145_43f6_80ee69e81c0b\"></object>\n<object type=\"application/kenticocloud\" data-type=\"item\" data-rel=\"component\" data-codename=\"n79d392cf_9396_01ce_e843_bae36dba8301\"></object>"
+        }
+      }
+    },
+    "n79d392cf_9396_01ce_e843_bae36dba8301": {
+      "system": {
+        "id": "79d392cf-9396-01ce-e843-bae36dba8301",
+        "name": "79d392cf-9396-01ce-e843-bae36dba8301",
+        "codename": "n79d392cf_9396_01ce_e843_bae36dba8301",
+        "language": "default",
+        "type": "column",
+        "collection": "default",
+        "sitemap_locations": [],
+        "last_modified": "2022-03-10T14:40:06.4077772Z"
+      },
+      "elements": {
+        "content": {
+          "type": "rich_text",
+          "name": "Content",
+          "images": {},
+          "links": {},
+          "modular_content": [],
+          "value": "<p>Third column</p>"
+        }
+      }
+    }
+  }
+}

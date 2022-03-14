@@ -287,7 +287,47 @@ On some projects, he was cooperating with
 </div>
 `;
 
-exports[`<RichTextElement/> Resolve linked items 1`] = `
+exports[`<RichTextElement/> Resolve linked items from richText element with richText containing multiple level of linked items does not resolve lower level without linkedItems attribute 1`] = `
+<div>
+  <div
+    className="row"
+  >
+    <div>
+      <div
+        className="column"
+      >
+        <div>
+          <p>
+            First column
+          </p>
+        </div>
+      </div>
+      <div
+        className="column"
+      >
+        <div>
+          <p>
+            Second column
+          </p>
+        </div>
+      </div>
+      
+
+      <div
+        className="column"
+      >
+        <div>
+          <p>
+            Third column
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<RichTextElement/> Resolve linked items from richText element with richText containing single level of linked items 1`] = `
 <div>
   <p>
     This is Ondřej Chrastina - Developer Advocate with 
