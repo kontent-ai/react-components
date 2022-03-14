@@ -2,11 +2,12 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import TestRenderer from 'react-test-renderer';
 import { createDeliveryClient, Elements, ElementType } from '@kentico/kontent-delivery';
-import richTextItem from './complexRichTextItem.json';
+import complexRichTextItem from './complexRichTextItem.json';
+import multiLevelComponentsRichText from './multiLevelComponentsRichText.json';
 import { Element as ParserElement, domToReact } from 'html-react-parser';
-import { RichTextElement } from '../../../src';
-import { isComponent, isLinkedItem } from '../../../src/utils/richTextUtils';
+import { RichTextElement, isComponent, isLinkedItem, ResolverLinkedItemType } from '../../../src';
 import { Element as DomHandlerElement } from 'domhandler';
+import { assert } from 'console';
 
 // test('Parse rich text', () => {
 
@@ -38,7 +39,7 @@ describe('<RichTextElement/>', () => {
   });
 
   const complexItemResponse = mockClient.item("dummyItem")
-    .map(richTextItem);
+    .map(complexRichTextItem);
 
   const emptyRichText = {
     value: '<p><br></p>',
@@ -62,7 +63,7 @@ describe('<RichTextElement/>', () => {
     const testRenderer = TestRenderer.create(
       <RichTextElement
         richTextElement={{
-          ... emptyRichText,
+          ...emptyRichText,
           value: "<p>Lorem ipsum with <strong>bold text</strong></p>"
         }}
         resolveDomNode={(domNode, domToReact) => {
@@ -91,7 +92,7 @@ describe('<RichTextElement/>', () => {
     const testRenderer = TestRenderer.create(
       <RichTextElement
         richTextElement={complexItemResponse.item.elements["bio"] as Elements.RichTextElement}
-        
+
         resolveImage={(image, domNode): JSX.Element => (
           <img
             src={image.url}
@@ -123,7 +124,7 @@ describe('<RichTextElement/>', () => {
     const simpleValueRenderer = TestRenderer.create(
       <RichTextElement
         richTextElement={{
-          ... emptyRichText,
+          ...emptyRichText,
           value: '<p>This is the page text.</p><ul><li><a data-item-id="1abb6bf1-1e29-4deb-bb0c-b5928ffb0cc9" href="">Test link</a></li></ul>',
           links: [
             {
@@ -149,34 +150,79 @@ describe('<RichTextElement/>', () => {
     expect(simpleValueRenderer.toJSON()).toMatchSnapshot();
   });
 
-  it('Resolve linked items', () => {
-    const testRenderer = TestRenderer.create(
-      <RichTextElement
-        richTextElement={complexItemResponse.item.elements["bio"] as Elements.RichTextElement}
-        resolveLinkedItem={(linkedItem, domNode) => {
-          if (isComponent(domNode)) {
-            return (
-              <>
-                <h1>Component</h1>
-                <pre>{JSON.stringify(linkedItem, undefined, 2)}</pre>;
-              </>
-            );
-          }
+  describe('Resolve linked items from richText element', () => {
+    it('with richText containing single level of linked items', () => {
+      const testRenderer = TestRenderer.create(
+        <RichTextElement
+          richTextElement={complexItemResponse.item.elements["bio"] as Elements.RichTextElement}
+          resolveLinkedItem={(linkedItem, domNode) => {
+            if (isComponent(domNode)) {
+              return (
+                <>
+                  <h1>Component</h1>
+                  <pre>{JSON.stringify(linkedItem, undefined, 2)}</pre>;
+                </>
+              );
+            }
 
-          if (isLinkedItem(domNode)) {
-            return (
-              <>
-                <h1>Linked item</h1>
-                <pre>{JSON.stringify(linkedItem, undefined, 2)}</pre>;
-              </>
-            );
-          }
+            if (isLinkedItem(domNode)) {
+              return (
+                <>
+                  <h1>Linked item</h1>
+                  <pre>{JSON.stringify(linkedItem, undefined, 2)}</pre>;
+                </>
+              );
+            }
 
-          throw new Error("Unknown type of the linked item's dom node");
-        }}
-      />,
-    );
-    expect(testRenderer.toJSON()).toMatchSnapshot();
+            throw new Error("Unknown type of the linked item's dom node");
+          }}
+        />,
+      );
+      expect(testRenderer.toJSON()).toMatchSnapshot();
+    });
+
+    describe('with richText containing multiple level of linked items', () => {
+
+      const multiLevelComponentsRichTextItem = mockClient.item("dummyItem")
+        .map(multiLevelComponentsRichText);
+
+      const resolveLinkedItemsRecursively: ResolverLinkedItemType = (linkedItem, _domNode) => {
+
+        expect(linkedItem).toBeDefined();
+
+        switch (linkedItem?.system.type) {
+          case "row":
+            return (
+              <div className='row'>
+                <RichTextElement
+                  richTextElement={linkedItem?.elements["columns"] as Elements.RichTextElement}
+                  resolveLinkedItem={resolveLinkedItemsRecursively}
+                />
+              </div>
+            );
+          case "column":
+            return (
+              <div className='column'>
+                <RichTextElement
+                  richTextElement={linkedItem?.elements["content"] as Elements.RichTextElement}
+                // resolveLinkedItem={resolveLinkedItemsRecursively} in case there could be more nested linked items
+                />
+              </div>
+            )
+        };
+      }
+
+      it('does not resolve lower level without linkedItems attribute', () => {
+        const testRenderer = TestRenderer.create(
+          <RichTextElement
+            richTextElement={multiLevelComponentsRichTextItem.item.elements["content"] as Elements.RichTextElement}
+            resolveLinkedItem={resolveLinkedItemsRecursively}
+          />,
+        );
+        expect(testRenderer.toJSON()).toMatchSnapshot();
+      });
+    });
+
   });
 
   it('Resolve geneal node - wrap table element', () => {
