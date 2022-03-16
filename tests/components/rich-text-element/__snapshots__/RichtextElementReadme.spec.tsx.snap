@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<RichTextElement/> readme code samples should resolve without fail 1`] = `
-<div
-  className="testClassName"
->
+Array [
   <p>
     This is Ondřej Chrastina - Developer Advocate with 
     <a
@@ -15,22 +13,22 @@ exports[`<RichTextElement/> readme code samples should resolve without fail 1`] 
       Kentico Kontent
     </a>
     .
-  </p>
+  </p>,
   <img
     alt="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
     src="https://assets-us-01.kc-usercontent.com:443/0f6785d7-8214-000f-62b3-d9580d692b59/44299668-b37b-4224-a115-1fd66f7d7b36/Yprofile.jpg"
     width="200"
-  />
-  
-
+  />,
+  "
+",
   <p>
     He likes to do web sites. This is his latest project:
-  </p>
-  
-
+  </p>,
+  "
+",
   <h1>
     Linked item
-  </h1>
+  </h1>,
   <pre>
     {
   "elements": {
@@ -75,20 +73,20 @@ exports[`<RichTextElement/> readme code samples should resolve without fail 1`] 
     "workflowStep": "published"
   }
 }
-  </pre>
-  ;
-  
-
+  </pre>,
+  ";",
+  "
+",
   <p>
     <br />
     
 He also likes OSS. This is his latest repository:
-  </p>
-  
-
+  </p>,
+  "
+",
   <h1>
     Linked item
-  </h1>
+  </h1>,
   <pre>
     {
   "elements": {
@@ -125,10 +123,10 @@ He also likes OSS. This is his latest repository:
     "workflowStep": "published"
   }
 }
-  </pre>
-  ;
-  
-
+  </pre>,
+  ";",
+  "
+",
   <p>
     <br />
     
@@ -139,9 +137,9 @@ On some projects, he was cooperating with
       John Doe
     </a>
     .
-  </p>
-  
-
+  </p>,
+  "
+",
   <p>
     You could take a look at their 
     <a
@@ -151,17 +149,17 @@ On some projects, he was cooperating with
       latest project
     </a>
     .
-  </p>
-  
-
+  </p>,
+  "
+",
   <p>
     Check out also this interesting repository
-  </p>
-  
-
+  </p>,
+  "
+",
   <h1>
     Component
-  </h1>
+  </h1>,
   <pre>
     {
   "elements": {
@@ -198,7 +196,7 @@ On some projects, he was cooperating with
     "workflowStep": null
   }
 }
-  </pre>
-  ;
-</div>
+  </pre>,
+  ";",
+]
 `;

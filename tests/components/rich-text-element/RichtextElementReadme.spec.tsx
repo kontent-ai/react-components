@@ -55,7 +55,6 @@ describe('<RichTextElement/> readme code samples', () => {
                         return <div className="table-wrapper">{domToReact([domNode])}</div>;
                     }
                 }}
-                className="testClassName"
             />,
         );
         expect(testRenderer.toJSON()).toMatchSnapshot();

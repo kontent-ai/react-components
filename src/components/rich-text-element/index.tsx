@@ -116,7 +116,6 @@ interface IReactRichTextElementProps {
     resolveImage?: ResolveImageType;
     resolveLink?: ResolveLinkType;
     resolveDomNode?: ResolveDomNodeType;
-    className?: string
 };
 
 const RichTextElement: React.FC<IReactRichTextElementProps> = ({
@@ -125,18 +124,13 @@ const RichTextElement: React.FC<IReactRichTextElementProps> = ({
     resolveImage,
     resolveLink,
     resolveDomNode,
-    className
 }) => {
     const cleanedValue = richTextElement.value.replace(/(\n|\r)+/, "");
     const result = parseHTML(cleanedValue, {
         replace: (domNode) => replaceNode(domNode, richTextElement, resolveLinkedItem, resolveImage, resolveLink, resolveDomNode),
     });
 
-    return (
-        <div className={className} >
-            {result}
-        </div>
-    );
+    return <>{result}</>;
 }
 
 export { RichTextElement };

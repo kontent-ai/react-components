@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<RichTextElement/> Complex rich-text value - render properly no resolution 1`] = `
-<div>
+Array [
   <p>
     This is Ondřej Chrastina - Developer Advocate with 
     <a
@@ -13,7 +13,7 @@ exports[`<RichTextElement/> Complex rich-text value - render properly no resolut
       Kentico Kontent
     </a>
     .
-  </p>
+  </p>,
   <figure
     data-asset-id="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
     data-image-id="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
@@ -24,37 +24,37 @@ exports[`<RichTextElement/> Complex rich-text value - render properly no resolut
       data-image-id="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
       src="https://assets-us-01.kc-usercontent.com:443/0f6785d7-8214-000f-62b3-d9580d692b59/44299668-b37b-4224-a115-1fd66f7d7b36/Yprofile.jpg"
     />
-  </figure>
-  
-
+  </figure>,
+  "
+",
   <p>
     He likes to do web sites. This is his latest project:
-  </p>
-  
-
+  </p>,
+  "
+",
   <object
     data-codename="ondrej_chrastina_tech"
     data-rel="link"
     data-type="item"
     type="application/kenticocloud"
-  />
-  
-
+  />,
+  "
+",
   <p>
     <br />
     
 He also likes OSS. This is his latest repository:
-  </p>
-  
-
+  </p>,
+  "
+",
   <object
     data-codename="simply007_kontent_gatsby_benchmark"
     data-rel="link"
     data-type="item"
     type="application/kenticocloud"
-  />
-  
-
+  />,
+  "
+",
   <p>
     <br />
     
@@ -66,9 +66,9 @@ On some projects, he was cooperating with
       John Doe
     </a>
     .
-  </p>
-  
-
+  </p>,
+  "
+",
   <p>
     You could take a look at their 
     <a
@@ -78,33 +78,31 @@ On some projects, he was cooperating with
       latest project
     </a>
     .
-  </p>
-  
-
+  </p>,
+  "
+",
   <p>
     Check out also this interesting repository
-  </p>
-  
-
+  </p>,
+  "
+",
   <object
     data-codename="n5b76e971_4709_01f2_e8ea_36a9716d7b42"
     data-rel="component"
     data-type="item"
     type="application/kenticocloud"
-  />
-</div>
+  />,
+]
 `;
 
 exports[`<RichTextElement/> Empty rich-text value - render properly 1`] = `
-<div>
-  <p>
-    <br />
-  </p>
-</div>
+<p>
+  <br />
+</p>
 `;
 
 exports[`<RichTextElement/> Resolve geneal node - wrap table element 1`] = `
-<div>
+Array [
   <p>
     This is Ondřej Chrastina - Developer Advocate with 
     <a
@@ -116,7 +114,7 @@ exports[`<RichTextElement/> Resolve geneal node - wrap table element 1`] = `
       Kentico Kontent
     </a>
     .
-  </p>
+  </p>,
   <figure
     data-asset-id="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
     data-image-id="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
@@ -127,37 +125,37 @@ exports[`<RichTextElement/> Resolve geneal node - wrap table element 1`] = `
       data-image-id="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
       src="https://assets-us-01.kc-usercontent.com:443/0f6785d7-8214-000f-62b3-d9580d692b59/44299668-b37b-4224-a115-1fd66f7d7b36/Yprofile.jpg"
     />
-  </figure>
-  
-
+  </figure>,
+  "
+",
   <p>
     He likes to do web sites. This is his latest project:
-  </p>
-  
-
+  </p>,
+  "
+",
   <object
     data-codename="ondrej_chrastina_tech"
     data-rel="link"
     data-type="item"
     type="application/kenticocloud"
-  />
-  
-
+  />,
+  "
+",
   <p>
     <br />
     
 He also likes OSS. This is his latest repository:
-  </p>
-  
-
+  </p>,
+  "
+",
   <object
     data-codename="simply007_kontent_gatsby_benchmark"
     data-rel="link"
     data-type="item"
     type="application/kenticocloud"
-  />
-  
-
+  />,
+  "
+",
   <p>
     <br />
     
@@ -169,9 +167,9 @@ On some projects, he was cooperating with
       John Doe
     </a>
     .
-  </p>
-  
-
+  </p>,
+  "
+",
   <p>
     You could take a look at their 
     <a
@@ -181,25 +179,25 @@ On some projects, he was cooperating with
       latest project
     </a>
     .
-  </p>
-  
-
+  </p>,
+  "
+",
   <p>
     Check out also this interesting repository
-  </p>
-  
-
+  </p>,
+  "
+",
   <object
     data-codename="n5b76e971_4709_01f2_e8ea_36a9716d7b42"
     data-rel="component"
     data-type="item"
     type="application/kenticocloud"
-  />
-</div>
+  />,
+]
 `;
 
 exports[`<RichTextElement/> Resolve images 1`] = `
-<div>
+Array [
   <p>
     This is Ondřej Chrastina - Developer Advocate with 
     <a
@@ -211,42 +209,42 @@ exports[`<RichTextElement/> Resolve images 1`] = `
       Kentico Kontent
     </a>
     .
-  </p>
+  </p>,
   <img
     alt="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
     src="https://assets-us-01.kc-usercontent.com:443/0f6785d7-8214-000f-62b3-d9580d692b59/44299668-b37b-4224-a115-1fd66f7d7b36/Yprofile.jpg"
     width="200"
-  />
-  
-
+  />,
+  "
+",
   <p>
     He likes to do web sites. This is his latest project:
-  </p>
-  
-
+  </p>,
+  "
+",
   <object
     data-codename="ondrej_chrastina_tech"
     data-rel="link"
     data-type="item"
     type="application/kenticocloud"
-  />
-  
-
+  />,
+  "
+",
   <p>
     <br />
     
 He also likes OSS. This is his latest repository:
-  </p>
-  
-
+  </p>,
+  "
+",
   <object
     data-codename="simply007_kontent_gatsby_benchmark"
     data-rel="link"
     data-type="item"
     type="application/kenticocloud"
-  />
-  
-
+  />,
+  "
+",
   <p>
     <br />
     
@@ -258,9 +256,9 @@ On some projects, he was cooperating with
       John Doe
     </a>
     .
-  </p>
-  
-
+  </p>,
+  "
+",
   <p>
     You could take a look at their 
     <a
@@ -270,65 +268,55 @@ On some projects, he was cooperating with
       latest project
     </a>
     .
-  </p>
-  
-
+  </p>,
+  "
+",
   <p>
     Check out also this interesting repository
-  </p>
-  
-
+  </p>,
+  "
+",
   <object
     data-codename="n5b76e971_4709_01f2_e8ea_36a9716d7b42"
     data-rel="component"
     data-type="item"
     type="application/kenticocloud"
-  />
-</div>
+  />,
+]
 `;
 
 exports[`<RichTextElement/> Resolve linked items from richText element with richText containing multiple level of linked items does not resolve lower level without linkedItems attribute 1`] = `
-<div>
+<div
+  className="row"
+>
   <div
-    className="row"
+    className="column"
   >
-    <div>
-      <div
-        className="column"
-      >
-        <div>
-          <p>
-            First column
-          </p>
-        </div>
-      </div>
-      <div
-        className="column"
-      >
-        <div>
-          <p>
-            Second column
-          </p>
-        </div>
-      </div>
-      
+    <p>
+      First column
+    </p>
+  </div>
+  <div
+    className="column"
+  >
+    <p>
+      Second column
+    </p>
+  </div>
+  
 
-      <div
-        className="column"
-      >
-        <div>
-          <p>
-            Third column
-          </p>
-        </div>
-      </div>
-    </div>
+  <div
+    className="column"
+  >
+    <p>
+      Third column
+    </p>
   </div>
 </div>
 `;
 
 exports[`<RichTextElement/> Resolve linked items from richText element with richText containing single level of linked items 1`] = `
-<div>
+Array [
   <p>
     This is Ondřej Chrastina - Developer Advocate with 
     <a
@@ -340,7 +328,7 @@ exports[`<RichTextElement/> Resolve linked items from richText element with rich
       Kentico Kontent
     </a>
     .
-  </p>
+  </p>,
   <figure
     data-asset-id="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
     data-image-id="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
@@ -351,17 +339,17 @@ exports[`<RichTextElement/> Resolve linked items from richText element with rich
       data-image-id="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
       src="https://assets-us-01.kc-usercontent.com:443/0f6785d7-8214-000f-62b3-d9580d692b59/44299668-b37b-4224-a115-1fd66f7d7b36/Yprofile.jpg"
     />
-  </figure>
-  
-
+  </figure>,
+  "
+",
   <p>
     He likes to do web sites. This is his latest project:
-  </p>
-  
-
+  </p>,
+  "
+",
   <h1>
     Linked item
-  </h1>
+  </h1>,
   <pre>
     {
   "elements": {
@@ -406,20 +394,20 @@ exports[`<RichTextElement/> Resolve linked items from richText element with rich
     "workflowStep": "published"
   }
 }
-  </pre>
-  ;
-  
-
+  </pre>,
+  ";",
+  "
+",
   <p>
     <br />
     
 He also likes OSS. This is his latest repository:
-  </p>
-  
-
+  </p>,
+  "
+",
   <h1>
     Linked item
-  </h1>
+  </h1>,
   <pre>
     {
   "elements": {
@@ -456,10 +444,10 @@ He also likes OSS. This is his latest repository:
     "workflowStep": "published"
   }
 }
-  </pre>
-  ;
-  
-
+  </pre>,
+  ";",
+  "
+",
   <p>
     <br />
     
@@ -471,9 +459,9 @@ On some projects, he was cooperating with
       John Doe
     </a>
     .
-  </p>
-  
-
+  </p>,
+  "
+",
   <p>
     You could take a look at their 
     <a
@@ -483,17 +471,17 @@ On some projects, he was cooperating with
       latest project
     </a>
     .
-  </p>
-  
-
+  </p>,
+  "
+",
   <p>
     Check out also this interesting repository
-  </p>
-  
-
+  </p>,
+  "
+",
   <h1>
     Component
-  </h1>
+  </h1>,
   <pre>
     {
   "elements": {
@@ -530,13 +518,13 @@ On some projects, he was cooperating with
     "workflowStep": null
   }
 }
-  </pre>
-  ;
-</div>
+  </pre>,
+  ";",
+]
 `;
 
 exports[`<RichTextElement/> Resolve links 1`] = `
-<div>
+Array [
   <p>
     This is Ondřej Chrastina - Developer Advocate with 
     <a
@@ -548,7 +536,7 @@ exports[`<RichTextElement/> Resolve links 1`] = `
       Kentico Kontent
     </a>
     .
-  </p>
+  </p>,
   <figure
     data-asset-id="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
     data-image-id="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
@@ -559,37 +547,37 @@ exports[`<RichTextElement/> Resolve links 1`] = `
       data-image-id="d32b8ad5-0cf4-47a8-8b53-ed4a1e80dc88"
       src="https://assets-us-01.kc-usercontent.com:443/0f6785d7-8214-000f-62b3-d9580d692b59/44299668-b37b-4224-a115-1fd66f7d7b36/Yprofile.jpg"
     />
-  </figure>
-  
-
+  </figure>,
+  "
+",
   <p>
     He likes to do web sites. This is his latest project:
-  </p>
-  
-
+  </p>,
+  "
+",
   <object
     data-codename="ondrej_chrastina_tech"
     data-rel="link"
     data-type="item"
     type="application/kenticocloud"
-  />
-  
-
+  />,
+  "
+",
   <p>
     <br />
     
 He also likes OSS. This is his latest repository:
-  </p>
-  
-
+  </p>,
+  "
+",
   <object
     data-codename="simply007_kontent_gatsby_benchmark"
     data-rel="link"
     data-type="item"
     type="application/kenticocloud"
-  />
-  
-
+  />,
+  "
+",
   <p>
     <br />
     
@@ -600,9 +588,9 @@ On some projects, he was cooperating with
       John Doe
     </a>
     .
-  </p>
-  
-
+  </p>,
+  "
+",
   <p>
     You could take a look at their 
     <a
@@ -612,28 +600,28 @@ On some projects, he was cooperating with
       latest project
     </a>
     .
-  </p>
-  
-
+  </p>,
+  "
+",
   <p>
     Check out also this interesting repository
-  </p>
-  
-
+  </p>,
+  "
+",
   <object
     data-codename="n5b76e971_4709_01f2_e8ea_36a9716d7b42"
     data-rel="component"
     data-type="item"
     type="application/kenticocloud"
-  />
-</div>
+  />,
+]
 `;
 
 exports[`<RichTextElement/> Resolve links 2`] = `
-<div>
+Array [
   <p>
     This is the page text.
-  </p>
+  </p>,
   <ul>
     <li>
       <a
@@ -642,17 +630,15 @@ exports[`<RichTextElement/> Resolve links 2`] = `
         Test link
       </a>
     </li>
-  </ul>
-</div>
+  </ul>,
+]
 `;
 
 exports[`<RichTextElement/> Simple rich-text value resolved simple dom node properly 1`] = `
-<div>
-  <p>
-    Lorem ipsum with 
-    <b>
-      bold text
-    </b>
-  </p>
-</div>
+<p>
+  Lorem ipsum with 
+  <b>
+    bold text
+  </b>
+</p>
 `;

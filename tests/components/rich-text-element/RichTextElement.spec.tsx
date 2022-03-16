@@ -26,7 +26,6 @@ import { assert } from 'console';
 //     resolveImage={undefined}
 //     resolveLink={undefined}
 //     resolveDomNode={undefined}
-//     className="testClassName"
 //   />);
 
 //   debug();
