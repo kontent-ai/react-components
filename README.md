@@ -38,7 +38,7 @@ const response = await client.item("<YOUR ITEM CODENAME>"))
 
 <RichTextElement
     richTextElement={response.item.elements["bio"] as Elements.RichTextElement}
-    resolutions={{
+    resolvers={{
         resolveLinkedItem: (linkedItem, { domElement, domToReact }) => {
             if (isComponent(domElement)) {
                 return (
@@ -101,7 +101,7 @@ const resolveLinkedItemsRecursively: ResolverLinkedItemType = (
               linkedItem?.elements["columns"] as Elements.RichTextElement
             }
             // Recursively resolve items in the rich text
-            resolutions={{
+            resolvers={{
               resolveLinkedItem: resolveLinkedItemsRecursively,
             }}
           />
@@ -114,7 +114,7 @@ const resolveLinkedItemsRecursively: ResolverLinkedItemType = (
             richTextElement={
               linkedItem?.elements["content"] as Elements.RichTextElement
             }
-            resolutions={{
+            resolvers={{
               resolveLinkedItem: resolveLinkedItemsRecursively,
             }}
           />
@@ -130,7 +130,7 @@ const resolveLinkedItemsRecursively: ResolverLinkedItemType = (
       "content"
     ] as Elements.RichTextElement
   }
-  resolutions={{
+  resolvers={{
     resolveLinkedItem: resolveLinkedItemsRecursively,
   }}
 />;
@@ -150,7 +150,7 @@ In this showcase a simple html is being resolved and fpr `<p>` tags and all `<st
     ...emptyRichText,
     value: "<p>Lorem ipsum with <strong>bold text</strong></p>",
   }}
-  resolutions={{
+  resolvers={{
     resolveDomNode: ({ domNode, domToReact }) => {
       if (domNode instanceof DomHandlerElement) {
         if (domNode.name === "strong") {
