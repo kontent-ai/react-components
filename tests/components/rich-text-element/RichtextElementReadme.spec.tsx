@@ -17,8 +17,8 @@ describe('<RichTextElement/> readme code samples', () => {
         const testRenderer = TestRenderer.create(
             <RichTextElement
                 richTextElement={response.item.elements["bio"] as Elements.RichTextElement}
-                resolveLinkedItem={(linkedItem, domNode) => {
-                    if (isComponent(domNode)) {
+                resolveLinkedItem={(linkedItem, { domElement, domToReact }) => {
+                    if (isComponent(domElement)) {
                         return (
                             <>
                                 <h1>Component</h1>
@@ -27,7 +27,7 @@ describe('<RichTextElement/> readme code samples', () => {
                         );
                     }
 
-                    if (isLinkedItem(domNode)) {
+                    if (isLinkedItem(domElement)) {
                         return (
                             <>
                                 <h1>Linked item</h1>
@@ -38,24 +38,24 @@ describe('<RichTextElement/> readme code samples', () => {
 
                     throw new Error("Unknown type of the linked item's dom node");
                 }}
-                resolveImage={(image, domNode): JSX.Element => (
+                resolveImage={(image, { domElement, domToReact }): JSX.Element => (
                     <img
                         src={image.url}
                         alt={image.description ? image.description : image.imageId}
                         width="200"
                     />
                 )}
-                resolveLink={(link, domNode, domToReact): JSX.Element => (
+                resolveLink={(link, { domElement, domToReact }): JSX.Element => (
                     <a href={`/${link.type}/${link.urlSlug}`}>
-                        {domToReact(domNode.children)}
+                        {domToReact(domElement.children)}
                     </a>
                 )}
-                resolveDomNode={(domNode, domToReact) => {
+                resolveDomNode={({ domNode, domToReact }) => {
                     if (domNode instanceof DomHandlerElement && domNode.name === 'table') {
                         return <div className="table-wrapper">{domToReact([domNode])}</div>;
                     }
                 }}
-            />,
+            />
         );
         expect(testRenderer.toJSON()).toMatchSnapshot();
     })

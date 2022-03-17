@@ -1,13 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import TestRenderer from 'react-test-renderer';
 import { createDeliveryClient, Elements, ElementType } from '@kentico/kontent-delivery';
 import complexRichTextItem from './complexRichTextItem.json';
 import multiLevelComponentsRichText from './multiLevelComponentsRichText.json';
-import { Element as ParserElement, domToReact } from 'html-react-parser';
+import { Element as ParserElement } from 'html-react-parser';
 import { RichTextElement, isComponent, isLinkedItem, ResolverLinkedItemType } from '../../../src';
 import { Element as DomHandlerElement } from 'domhandler';
-import { assert } from 'console';
 
 // test('Parse rich text', () => {
 
@@ -65,7 +63,7 @@ describe('<RichTextElement/>', () => {
           ...emptyRichText,
           value: "<p>Lorem ipsum with <strong>bold text</strong></p>"
         }}
-        resolveDomNode={(domNode, domToReact) => {
+        resolveDomNode={({ domNode, domToReact }) => {
           if (domNode instanceof ParserElement) {
             if (domNode.name === "strong") {
               return <b>{domToReact(domNode.children)}</b>;
@@ -74,6 +72,34 @@ describe('<RichTextElement/>', () => {
         }
         }
       />,
+    );
+    expect(testRenderer.toJSON()).toMatchSnapshot();
+  });
+
+  it('Simple rich-text value resolved when DOM Node was mutated', () => {
+    const testRenderer = TestRenderer.create(
+      <RichTextElement
+        richTextElement={{
+          ...emptyRichText,
+          value: "<p>Lorem ipsum with <strong>bold text</strong></p>"
+        }}
+        resolveDomNode={({ domNode, domToReact }) => {
+          if (domNode instanceof DomHandlerElement) {
+            if (domNode.name === "strong") {
+              domNode.attribs.class = domNode.attribs.class
+                ? domNode.attribs.class + " strongClass"
+                : "strongClass";
+              return undefined;
+            }
+            else if (domNode.name === "p") {
+              domNode.attribs.class = domNode.attribs.class
+                ? domNode.attribs.class + " pClass"
+                : "pClass";
+              return undefined;
+            }
+          }
+        }}
+      />
     );
     expect(testRenderer.toJSON()).toMatchSnapshot();
   });
@@ -92,7 +118,7 @@ describe('<RichTextElement/>', () => {
       <RichTextElement
         richTextElement={complexItemResponse.item.elements["bio"] as Elements.RichTextElement}
 
-        resolveImage={(image, domNode): JSX.Element => (
+        resolveImage={(image, { domElement }): JSX.Element => (
           <img
             src={image.url}
             alt={image.description ? image.description : image.imageId}
@@ -108,10 +134,10 @@ describe('<RichTextElement/>', () => {
     const complexValueRenderer = TestRenderer.create(
       <RichTextElement
         richTextElement={complexItemResponse.item.elements["bio"] as Elements.RichTextElement}
-        resolveLink={(link, domNode, domToReact): JSX.Element => {
+        resolveLink={(link, { domElement, domToReact }): JSX.Element => {
           return (
             <a href={`/${link.type}/${link.urlSlug}`}>
-              {domToReact(domNode.children)}
+              {domToReact(domElement.children)}
             </a>
           );
         }}
@@ -136,14 +162,15 @@ describe('<RichTextElement/>', () => {
         }
         }
 
-        resolveLink={(link, domNode, domToReact): JSX.Element => {
+        resolveLink={(link, { domElement, domToReact }): JSX.Element => {
           return (
             // normally a Link component from gatsby package would be used
             <a href={`/${link.type}/${link.urlSlug}`}>
-              {domToReact(domNode.children)}
+              {domToReact(domElement.children)}
             </a>
           );
-        }}
+        }
+        }
       />,
     );
     expect(simpleValueRenderer.toJSON()).toMatchSnapshot();
@@ -154,8 +181,8 @@ describe('<RichTextElement/>', () => {
       const testRenderer = TestRenderer.create(
         <RichTextElement
           richTextElement={complexItemResponse.item.elements["bio"] as Elements.RichTextElement}
-          resolveLinkedItem={(linkedItem, domNode) => {
-            if (isComponent(domNode)) {
+          resolveLinkedItem={(linkedItem, { domElement, domToReact }) => {
+            if (isComponent(domElement)) {
               return (
                 <>
                   <h1>Component</h1>
@@ -164,7 +191,7 @@ describe('<RichTextElement/>', () => {
               );
             }
 
-            if (isLinkedItem(domNode)) {
+            if (isLinkedItem(domElement)) {
               return (
                 <>
                   <h1>Linked item</h1>
@@ -228,7 +255,7 @@ describe('<RichTextElement/>', () => {
     const testRenderer = TestRenderer.create(
       <RichTextElement
         richTextElement={complexItemResponse.item.elements["bio"] as Elements.RichTextElement}
-        resolveDomNode={(domNode, domToReact) => {
+        resolveDomNode={({ domNode, domToReact }) => {
           if (domNode instanceof DomHandlerElement && domNode.name === 'table') {
             return <div className="table-wrapper">{domToReact([domNode])}</div>;
           }

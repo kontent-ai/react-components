@@ -1,6 +1,6 @@
 {
   "name": "@simply007org/kontent-react-components",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "The package containing React components useful when processing Kontent data to the site.",
   "repository": "https://github.com/Simply007/kontent-react-components.git",
   "homepage": "https://github.com/Simply007/kontent-react-components#readme",

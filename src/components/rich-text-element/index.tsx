@@ -1,65 +1,63 @@
 import parseHTML, { domToReact, DOMNode, HTMLReactParserOptions } from "html-react-parser";
 import { Elements, IContentItem, IContentItemsContainer, ILink, IRichTextImage } from '@kentico/kontent-delivery';
-import { Element as DomHandlerElement } from "domhandler";
+import { Element as DOMHandlerElement } from "domhandler";
 
 const IMAGE_ID_ATTRIBUTE_IDENTIFIER = "data-image-id";
 const LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER = "data-item-id";
 
 const isLinkedItem = (domNode: DOMNode): boolean => {
-    if (domNode instanceof DomHandlerElement) {
+    if (domNode instanceof DOMHandlerElement) {
         return domNode.tagName === "object" && domNode.attributes.find(attr => attr.name === "type")?.value === "application/kenticocloud";
     }
     return false;
 }
 
 const isImage = (domNode: DOMNode): boolean => {
-    if (domNode instanceof DomHandlerElement) {
+    if (domNode instanceof DOMHandlerElement) {
         return domNode.tagName === "figure" && domNode.attributes.find(attr => attr.name === IMAGE_ID_ATTRIBUTE_IDENTIFIER)?.value !== "undefined";
     }
     return false;
 }
 
 const isLinkedItemLink = (domNode: DOMNode) => {
-    if (domNode instanceof DomHandlerElement) {
+    if (domNode instanceof DOMHandlerElement) {
         return domNode.tagName === "a" && domNode.attributes.find(attr => attr.name === LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER)?.value !== "undefined";
     }
     return false;
 }
 
+export type DOMToReactFunction = (
+    nodes: DOMNode[],
+    options?: HTMLReactParserOptions | undefined
+) => string | JSX.Element | JSX.Element[]
+
+
+export type DomElementOptionsType = {
+    domElement: DOMHandlerElement,
+    domToReact: DOMToReactFunction
+};
+
 // TODO encapsulate domNode and domtoReact so subtype and ideally sub-property
 export type ResolverLinkedItemType = (
     linkedItem: IContentItem | undefined,
-    domNode: DomHandlerElement,
-    domToReact: (
-        nodes: DOMNode[],
-        options?: HTMLReactParserOptions | undefined
-    ) => string | JSX.Element | JSX.Element[]
+    domOptions: DomElementOptionsType
 ) => JSX.Element | JSX.Element[] | undefined | null | false
 
 export type ResolveImageType = (
     image: IRichTextImage,
-    domNode: DomHandlerElement,
-    domToReact: (
-        nodes: DOMNode[],
-        options?: HTMLReactParserOptions | undefined
-    ) => string | JSX.Element | JSX.Element[]
+    domOptions: DomElementOptionsType
 ) => JSX.Element | JSX.Element[] | undefined | null | false
 
 export type ResolveLinkType = (
     link: ILink,
-    domNode: DomHandlerElement,
-    domToReact: (
-        nodes: DOMNode[],
-        options?: HTMLReactParserOptions | undefined
-    ) => string | JSX.Element | JSX.Element[]
+    domOptions: DomElementOptionsType
 ) => JSX.Element | JSX.Element[] | undefined | null | false
 
 export type ResolveDomNodeType = (
-    domNode: DOMNode,
-    domToReact: (
-        nodes: DOMNode[],
-        options?: HTMLReactParserOptions | undefined
-    ) => string | JSX.Element | JSX.Element[]
+    domOptions: {
+        domNode: DOMNode,
+        domToReact: DOMToReactFunction
+    }
 ) => JSX.Element | JSX.Element[] | undefined | null | false
 
 
@@ -75,38 +73,38 @@ const replaceNode = (
     const { images, links } = richTextElement;
     if (resolveLinkedItem && richTextElement.linkedItems) {
         if (isLinkedItem(domNode)) {
-            const node = domNode as DomHandlerElement;
+            const node = domNode as DOMHandlerElement;
             const codeName = node?.attributes.find(attr => attr.name === "data-codename")?.value;
             const linkedItem = codeName ? richTextElement.linkedItems.find(item => item.system.codename === codeName) : undefined;
-            return resolveLinkedItem(linkedItem, node, domToReact);
+            return resolveLinkedItem(linkedItem, { domElement: node, domToReact });
         }
     }
 
     if (resolveImage && images) {
         if (isImage(domNode)) {
-            const node = domNode as DomHandlerElement;
+            const node = domNode as DOMHandlerElement;
             const imageId = node?.attributes.find(attr => attr.name === IMAGE_ID_ATTRIBUTE_IDENTIFIER)?.value;
             const image = images.find((image: { imageId: string }) => image.imageId === imageId);
             if (image) {
-                return resolveImage(image, node, domToReact);
+                return resolveImage(image, { domElement: node, domToReact });
             }
         }
     }
 
     if (resolveLink && links) {
         if (isLinkedItemLink(domNode)) {
-            const node = domNode as DomHandlerElement;
+            const node = domNode as DOMHandlerElement;
 
             const linkId = node?.attributes.find(attr => attr.name === LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER)?.value;
             const link = links.find((link: { linkId: string }) => link.linkId === linkId);
             if (link) {
-                return resolveLink(link, node, domToReact);
+                return resolveLink(link, { domElement: node, domToReact });
             }
         }
     }
 
     if (resolveDomNode) {
-        return resolveDomNode(domNode, domToReact);
+        return resolveDomNode({ domNode, domToReact });
     }
 }
 
