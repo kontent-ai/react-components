@@ -38,44 +38,42 @@ const response = await client.item("<YOUR ITEM CODENAME>"))
 
 <RichTextElement
     richTextElement={response.item.elements["bio"] as Elements.RichTextElement}
-    resolveLinkedItem={(linkedItem, { domElement, domToReact }) => {
-        // You might want to use switch based on `linkedItem.system.type`
-
-        if (isComponent(domElement)) {
-            return (
-                <>
-                    <h1>Component</h1>
-                    <pre>{JSON.stringify(linkedItem, undefined, 2)}</pre>;
-                </>
-            );
-        }
-
-        if (isLinkedItem(domElement)) {
-            return (
-                <>
-                    <h1>Linked item</h1>
-                    <pre>{JSON.stringify(linkedItem, undefined, 2)}</pre>;
-                </>
-            );
-        }
-
-        throw new Error("Unknown type of the linked item's dom node");
-    }}
-    resolveImage={(image, { domElement, domToReact }): JSX.Element => (
-        <img
-            src={image.url}
-            alt={image.description ? image.description : image.imageId}
-            width="200"
-        />
-    )}
-    resolveLink={(link, { domElement, domToReact }): JSX.Element => (
-        <a href={`/${link.type}/${link.urlSlug}`}>
-            {domToReact(domElement.children)}
-        </a>
-    )}
-    resolveDomNode={({ domNode, domToReact }) => {
-        if (domNode instanceof DomHandlerElement && domNode.name === 'table') {
-            return <div className="table-wrapper">{domToReact([domNode])}</div>;
+    resolutions={{
+        resolveLinkedItem: (linkedItem, { domElement, domToReact }) => {
+            if (isComponent(domElement)) {
+                return (
+                    <>
+                        <h1>Component</h1>
+                        <pre>{JSON.stringify(linkedItem, undefined, 2)}</pre>;
+                    </>
+                );
+            }
+            if (isLinkedItem(domElement)) {
+                return (
+                    <>
+                        <h1>Linked item</h1>
+                        <pre>{JSON.stringify(linkedItem, undefined, 2)}</pre>;
+                    </>
+                );
+            }
+            throw new Error("Unknown type of the linked item's dom node");
+        },
+        resolveImage: (image, { domElement, domToReact }): JSX.Element => (
+            <img
+                src={image.url}
+                alt={image.description ? image.description : image.imageId}
+                width="200"
+            />
+        ),
+        resolveLink: (link, { domElement, domToReact }): JSX.Element => (
+            <a href={`/${link.type}/${link.urlSlug}`}>
+                {domToReact(domElement.children)}
+            </a>
+        ),
+        resolveDomNode: ({ domNode, domToReact }) => {
+            if (domNode instanceof DomHandlerElement && domNode.name === 'table') {
+                return <div className="table-wrapper">{domToReact([domNode])}</div>;
+            }
         }
     }}
 />
@@ -90,35 +88,52 @@ There is an example when rich text can have `row` components, and these can cont
 
 ```tsx
 // resolving functionality
-const resolveLinkedItemsRecursively: ResolverLinkedItemType = (linkedItem, _domNode) => {
-    switch (linkedItem?.system.type) {
-        case "row":
-        return (
-            <div className='row'>
-                <RichTextElement
-                    richTextElement={linkedItem?.elements["columns"] as Elements.RichTextElement}
-                    // Recursively resolve items in the rich text
-                    resolveLinkedItem={resolveLinkedItemsRecursively}
-                />
-            </div>
-        );
-        case "column":
-        return (
-            <div className='column'>
-            <RichTextElement
-                richTextElement={linkedItem?.elements["content"] as Elements.RichTextElement}
-                // resolveLinkedItem={resolveLinkedItemsRecursively} in case there could be more nested linked items
-            />
-            </div>
-        )
-    };
-}
+const resolveLinkedItemsRecursively: ResolverLinkedItemType = (
+  linkedItem,
+  _domNode
+) => {
+  switch (linkedItem?.system.type) {
+    case "row":
+      return (
+        <div className="row">
+          <RichTextElement
+            richTextElement={
+              linkedItem?.elements["columns"] as Elements.RichTextElement
+            }
+            // Recursively resolve items in the rich text
+            resolutions={{
+              resolveLinkedItem: resolveLinkedItemsRecursively,
+            }}
+          />
+        </div>
+      );
+    case "column":
+      return (
+        <div className="column">
+          <RichTextElement
+            richTextElement={
+              linkedItem?.elements["content"] as Elements.RichTextElement
+            }
+            resolutions={{
+              resolveLinkedItem: resolveLinkedItemsRecursively,
+            }}
+          />
+        </div>
+      );
+  }
+};
 
-// SO the top level rich text would define 
+// SO the top level rich text would define
 <RichTextElement
-    richTextElement={multiLevelComponentsRichTextItem.item.elements["content"] as Elements.RichTextElement}
-    resolveLinkedItem={resolveLinkedItemsRecursively}
-/>
+  richTextElement={
+    multiLevelComponentsRichTextItem.item.elements[
+      "content"
+    ] as Elements.RichTextElement
+  }
+  resolutions={{
+    resolveLinkedItem: resolveLinkedItemsRecursively,
+  }}
+/>;
 ```
 
 > ⚠ Recursive resolution could lead to infinite loops, if you have a circular dependency. To avoid that, you can store the codenames of already processed items and if you hit the same one during resolution, break the resolution chain - this could happen only if you use linked items, not components in rich text.
@@ -131,41 +146,36 @@ In this showcase a simple html is being resolved and fpr `<p>` tags and all `<st
 
 ```tsx
 <RichTextElement
-    richTextElement={{
-        ...emptyRichText,
-        value: "<p>Lorem ipsum with <strong>bold text</strong></p>"
-    }}
-    resolveDomNode={({ domNode, domToReact }) => {
-        if (domNode instanceof DomHandlerElement) {
-            if (domNode.name === "strong") {
-                domNode.attribs.class = domNode.attribs.class
-                ? domNode.attribs.class + " strongClass"
-                : "strongClass";
-                return undefined;
-            }
-            else if (domNode.name === "p") {
-                domNode.attribs.class = domNode.attribs.class
-                ? domNode.attribs.class + " pClass"
-                : "pClass";
-                return undefined;
-            }
+  richTextElement={{
+    ...emptyRichText,
+    value: "<p>Lorem ipsum with <strong>bold text</strong></p>",
+  }}
+  resolutions={{
+    resolveDomNode: ({ domNode, domToReact }) => {
+      if (domNode instanceof DomHandlerElement) {
+        if (domNode.name === "strong") {
+          domNode.attribs.class = domNode.attribs.class
+            ? domNode.attribs.class + " strongClass"
+            : "strongClass";
+          return undefined;
+        } else if (domNode.name === "p") {
+          domNode.attribs.class = domNode.attribs.class
+            ? domNode.attribs.class + " pClass"
+            : "pClass";
+          return undefined;
         }
-    }}
-    />
+      }
+    },
+  }}
+/>
 ```
 
 The outcome is
 
 ```html
-<p
-  className="pClass"
->
-  Lorem ipsum with 
-  <strong
-    className="strongClass"
-  >
-    bold text
-  </strong>
+<p className="pClass">
+  Lorem ipsum with
+  <strong className="strongClass"> bold text </strong>
 </p>
 ```
 

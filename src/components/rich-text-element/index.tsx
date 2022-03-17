@@ -108,21 +108,33 @@ const replaceNode = (
     }
 }
 
-interface IReactRichTextElementProps {
-    richTextElement: Elements.RichTextElement,
+export type ResolversType = {
     resolveLinkedItem?: ResolverLinkedItemType;
     resolveImage?: ResolveImageType;
     resolveLink?: ResolveLinkType;
     resolveDomNode?: ResolveDomNodeType;
+}
+
+export type IReactRichTextElementProps = {
+    richTextElement: Elements.RichTextElement,
+    resolvers?: ResolversType
+
 };
 
 const RichTextElement: React.FC<IReactRichTextElementProps> = ({
     richTextElement,
-    resolveLinkedItem,
-    resolveImage,
-    resolveLink,
-    resolveDomNode,
+    resolvers: resolvers
 }) => {
+
+    // To avoid type error in case resolvers is undefined
+    const {
+        resolveLinkedItem,
+        resolveImage,
+        resolveLink,
+        resolveDomNode,
+    } = { ...resolvers };
+
+
     const cleanedValue = richTextElement.value.replace(/(\n|\r)+/, "");
     const result = parseHTML(cleanedValue, {
         replace: (domNode) => replaceNode(domNode, richTextElement, resolveLinkedItem, resolveImage, resolveLink, resolveDomNode),
