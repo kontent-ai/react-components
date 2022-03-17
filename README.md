@@ -127,7 +127,7 @@ const resolveLinkedItemsRecursively: ResolverLinkedItemType = (linkedItem, _domN
 
 By returning the react components in any of resolution function, you stop traversing the DOM tree under the current DOM node (its children). If you just want to avoid that behavior, you can mutate the provided DOM node and return `undefined`.
 
-In this showcase a simple html is being resolved and fpr `<p>` tags and all `<strong>` tags a proper class is being set witout stoping and traversing.
+In this showcase a simple html is being resolved and fpr `<p>` tags and all `<strong>` tags a proper class is being set without stopping and traversing.
 
 ```tsx
 <RichTextElement
@@ -137,18 +137,18 @@ In this showcase a simple html is being resolved and fpr `<p>` tags and all `<st
     }}
     resolveDomNode={({ domNode, domToReact }) => {
         if (domNode instanceof DomHandlerElement) {
-        if (domNode.name === "strong") {
-            domNode.attribs.class = domNode.attribs.class
-            ? domNode.attribs.class + " strongClass"
-            : "strongClass";
-            return undefined;
-        }
-        else if (domNode.name === "p") {
-            domNode.attribs.class = domNode.attribs.class
-            ? domNode.attribs.class + " pClass"
-            : "pClass";
-            return undefined;
-        }
+            if (domNode.name === "strong") {
+                domNode.attribs.class = domNode.attribs.class
+                ? domNode.attribs.class + " strongClass"
+                : "strongClass";
+                return undefined;
+            }
+            else if (domNode.name === "p") {
+                domNode.attribs.class = domNode.attribs.class
+                ? domNode.attribs.class + " pClass"
+                : "pClass";
+                return undefined;
+            }
         }
     }}
     />
