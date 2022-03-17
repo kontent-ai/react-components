@@ -31,16 +31,17 @@ const client =  createDeliveryClient({
     projectId: '<YOUR PROJECT ID>'
 });
 
-const response = await client.item("<YOUR ITEM CODENAME>)
+const response = await client.item("<YOUR ITEM CODENAME>"))
     .toPromise();
 
 // ...
 
 <RichTextElement
     richTextElement={response.item.elements["bio"] as Elements.RichTextElement}
-    linkedItems={response.linkedItems}
-    resolveLinkedItem={(linkedItem, domNode) => {
-        if (isComponent(domNode)) {
+    resolveLinkedItem={(linkedItem, { domElement, domToReact }) => {
+        // You might want to use switch based on `linkedItem.system.type`
+
+        if (isComponent(domElement)) {
             return (
                 <>
                     <h1>Component</h1>
@@ -49,7 +50,7 @@ const response = await client.item("<YOUR ITEM CODENAME>)
             );
         }
 
-        if (isLinkedItem(domNode)) {
+        if (isLinkedItem(domElement)) {
             return (
                 <>
                     <h1>Linked item</h1>
@@ -60,24 +61,114 @@ const response = await client.item("<YOUR ITEM CODENAME>)
 
         throw new Error("Unknown type of the linked item's dom node");
     }}
-    resolveImage={(image, domNode): JSX.Element => (
+    resolveImage={(image, { domElement, domToReact }): JSX.Element => (
         <img
             src={image.url}
             alt={image.description ? image.description : image.imageId}
             width="200"
         />
     )}
-    resolveLink={(link, domNode, domToReact): JSX.Element => (
+    resolveLink={(link, { domElement, domToReact }): JSX.Element => (
         <a href={`/${link.type}/${link.urlSlug}`}>
-            {domToReact(domNode.children)}
+            {domToReact(domElement.children)}
         </a>
     )}
-    resolveDomNode={(domNode, domToReact) => {
+    resolveDomNode={({ domNode, domToReact }) => {
         if (domNode instanceof DomHandlerElement && domNode.name === 'table') {
             return <div className="table-wrapper">{domToReact([domNode])}</div>;
         }
     }}
-    className="testClassName"
 />
 
 ```
+
+### Multilevel resolution
+
+If you want to resolve multiple levels of components and linked items in rich text, it is possible to use the component recursively and reuse the resolution logic.
+
+There is an example when rich text can have `row` components, and these can contains `column` components with html.
+
+```tsx
+// resolving functionality
+const resolveLinkedItemsRecursively: ResolverLinkedItemType = (linkedItem, _domNode) => {
+    switch (linkedItem?.system.type) {
+        case "row":
+        return (
+            <div className='row'>
+                <RichTextElement
+                    richTextElement={linkedItem?.elements["columns"] as Elements.RichTextElement}
+                    // Recursively resolve items in the rich text
+                    resolveLinkedItem={resolveLinkedItemsRecursively}
+                />
+            </div>
+        );
+        case "column":
+        return (
+            <div className='column'>
+            <RichTextElement
+                richTextElement={linkedItem?.elements["content"] as Elements.RichTextElement}
+                // resolveLinkedItem={resolveLinkedItemsRecursively} in case there could be more nested linked items
+            />
+            </div>
+        )
+    };
+}
+
+// SO the top level rich text would define 
+<RichTextElement
+    richTextElement={multiLevelComponentsRichTextItem.item.elements["content"] as Elements.RichTextElement}
+    resolveLinkedItem={resolveLinkedItemsRecursively}
+/>
+```
+
+> ⚠ Recursive resolution could lead to infinite loops, if you have a circular dependency. To avoid that, you can store the codenames of already processed items and if you hit the same one during resolution, break the resolution chain - this could happen only if you use linked items, not components in rich text.
+
+### Return vs. Mutate DOM Node
+
+By returning the react components in any of resolution function, you stop traversing the DOM tree under the current DOM node (its children). If you just want to avoid that behavior, you can mutate the provided DOM node and return `undefined`.
+
+In this showcase a simple html is being resolved and fpr `<p>` tags and all `<strong>` tags a proper class is being set witout stoping and traversing.
+
+```tsx
+<RichTextElement
+    richTextElement={{
+        ...emptyRichText,
+        value: "<p>Lorem ipsum with <strong>bold text</strong></p>"
+    }}
+    resolveDomNode={({ domNode, domToReact }) => {
+        if (domNode instanceof DomHandlerElement) {
+        if (domNode.name === "strong") {
+            domNode.attribs.class = domNode.attribs.class
+            ? domNode.attribs.class + " strongClass"
+            : "strongClass";
+            return undefined;
+        }
+        else if (domNode.name === "p") {
+            domNode.attribs.class = domNode.attribs.class
+            ? domNode.attribs.class + " pClass"
+            : "pClass";
+            return undefined;
+        }
+        }
+    }}
+    />
+```
+
+The outcome is
+
+```html
+<p
+  className="pClass"
+>
+  Lorem ipsum with 
+  <strong
+    className="strongClass"
+  >
+    bold text
+  </strong>
+</p>
+```
+
+## Feedback
+
+If you have any feedback, feel free to submit an issue or open a PR!
