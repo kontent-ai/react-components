@@ -1,0 +1,24 @@
+on:
+  release:
+    types: [published]
+
+name: publish-to-npm
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version-file: '.nvmrc'
+
+      - run: npm install
+      - run: npm run lint
+      - run: npm run build:prod
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_API_KEY }}
