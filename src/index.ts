@@ -1,3 +1,3 @@
 export * from './components/rich-text-element';
 
-export { isLinkedItem, isComponent } from './utils/richTextUtils';
+export  * from './utils/richTextUtils';

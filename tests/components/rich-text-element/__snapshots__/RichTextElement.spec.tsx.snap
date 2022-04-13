@@ -642,3 +642,16 @@ exports[`<RichTextElement/> Simple rich-text value resolved simple dom node prop
   </b>
 </p>
 `;
+
+exports[`<RichTextElement/> Simple rich-text value resolved when DOM Node was mutated 1`] = `
+<p
+  className="pClass"
+>
+  Lorem ipsum with 
+  <strong
+    className="strongClass"
+  >
+    bold text
+  </strong>
+</p>
+`;
