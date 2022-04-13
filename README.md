@@ -16,7 +16,7 @@ Components exports their typescript definitions so that you know what data forma
 
 Rich text elements from Kontent could be resolved to React components using [html-react-parser](https://www.npmjs.com/package/html-react-parser) (based on [this article](https://rshackleton.co.uk/articles/rendering-kentico-cloud-linked-content-items-with-react-components-in-gatsby))
 
-This package should make the usage easier. Basically by loading the rich text data and use these components to provide this data and resolution functions.
+This package should make the usage easier. Basically by loading the rich text data and use these components to provide this data and resolver functions.
 
 > More showcases could be found in [RichTextElement.spec.tsx](./tests/components/rich-text-element/RichTextElement.spec.tsx).
 
@@ -80,9 +80,9 @@ const response = await client.item("<YOUR ITEM CODENAME>"))
 
 ```
 
-### Multilevel resolution
+### Multilevel resolving
 
-If you want to resolve multiple levels of components and linked items in rich text, it is possible to use the component recursively and reuse the resolution logic.
+If you want to resolve multiple levels of components and linked items in rich text, it is possible to use the component recursively and reuse the resolving logic.
 
 There is an example when rich text can have `row` components, and these can contains `column` components with html.
 
@@ -140,9 +140,9 @@ const resolveLinkedItemsRecursively: ResolverLinkedItemType = (
 
 ### Return vs. Mutate DOM Node
 
-By returning the react components in any of resolution function, you stop traversing the DOM tree under the current DOM node (its children). If you just want to avoid that behavior, you can mutate the provided DOM node and return `undefined`.
+By returning the react components in any of the resolvers functions, you stop traversing the DOM tree under the current DOM node (its children). If you just want to avoid that behavior, you can mutate the provided DOM node and return `undefined`.
 
-In this showcase a simple html is being resolved and fpr `<p>` tags and all `<strong>` tags a proper class is being set without stopping and traversing.
+In this showcase a simple html is being resolved and for `<p>` tags and all `<strong>` tags a proper class is being set without stopping and traversing.
 
 ```tsx
 <RichTextElement
