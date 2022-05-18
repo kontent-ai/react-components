@@ -88,7 +88,7 @@ There is an example when rich text can have `row` components, and these can cont
 
 ```tsx
 // resolving functionality
-const resolveLinkedItemsRecursively: ResolverLinkedItemType = (
+const resolveLinkedItemsRecursively: ResolveLinkedItemType = (
   linkedItem,
   _domNode
 ) => {
