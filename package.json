@@ -34,7 +34,6 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@kentico/kontent-delivery": "^11.5.0",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "html-react-parser": "^1.4.8",
@@ -54,7 +53,11 @@
     "react-test-renderer": "^17.0.2",
     "ts-jest": "^27.1.3",
     "typescript": "^4.5.5",
-    "webpack": "^5.68.0"
+    "webpack": "^5.68.0",
+    "@kentico/kontent-delivery": "^11.4.0"
+  },
+  "peerDependencies": {
+    "@kentico/kontent-delivery": "11.x"
   },
   "browserslist": {
     "production": [

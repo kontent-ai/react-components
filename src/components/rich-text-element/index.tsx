@@ -37,8 +37,7 @@ export type DomElementOptionsType = {
     domToReact: DOMToReactFunction
 };
 
-// TODO encapsulate domNode and domtoReact so subtype and ideally sub-property
-export type ResolverLinkedItemType = (
+export type ResolveLinkedItemType = (
     linkedItem: IContentItem | undefined,
     domOptions: DomElementOptionsType
 ) => JSX.Element | JSX.Element[] | undefined | null | false
@@ -64,7 +63,7 @@ export type ResolveDomNodeType = (
 const replaceNode = (
     domNode: DOMNode,
     richTextElement: Elements.RichTextElement,
-    resolveLinkedItem?: ResolverLinkedItemType,
+    resolveLinkedItem?: ResolveLinkedItemType,
     resolveImage?: ResolveImageType,
     resolveLink?: ResolveLinkType,
     resolveDomNode?: ResolveDomNodeType,
@@ -109,7 +108,7 @@ const replaceNode = (
 }
 
 export type ResolversType = {
-    resolveLinkedItem?: ResolverLinkedItemType;
+    resolveLinkedItem?: ResolveLinkedItemType;
     resolveImage?: ResolveImageType;
     resolveLink?: ResolveLinkType;
     resolveDomNode?: ResolveDomNodeType;

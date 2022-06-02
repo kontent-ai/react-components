@@ -4,7 +4,7 @@ import { createDeliveryClient, Elements, ElementType } from '@kentico/kontent-de
 import complexRichTextItem from './complexRichTextItem.json';
 import multiLevelComponentsRichText from './multiLevelComponentsRichText.json';
 import { Element as ParserElement } from 'html-react-parser';
-import { RichTextElement, isComponent, isLinkedItem, ResolverLinkedItemType } from '../../../src';
+import { RichTextElement, isComponent, isLinkedItem, ResolveLinkedItemType } from '../../../src';
 import { Element as DomHandlerElement } from 'domhandler';
 
 // test('Parse rich text', () => {
@@ -220,7 +220,7 @@ describe('<RichTextElement/>', () => {
       const multiLevelComponentsRichTextItem = mockClient.item("dummyItem")
         .map(multiLevelComponentsRichText);
 
-      const resolveLinkedItemsRecursively: ResolverLinkedItemType = (linkedItem, _domNode) => {
+      const resolveLinkedItemsRecursively: ResolveLinkedItemType = (linkedItem, _domNode) => {
 
         expect(linkedItem).toBeDefined();
 
