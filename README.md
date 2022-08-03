@@ -1,4 +1,4 @@
-# React Kontent Components
+# Kontent.ai's React Components
 
 The package containing React components useful when processing Kontent data to the site.
 
@@ -14,15 +14,15 @@ Components exports their typescript definitions so that you know what data forma
 
 ## Rich text element component
 
-Rich text elements from Kontent could be resolved to React components using [html-react-parser](https://www.npmjs.com/package/html-react-parser) (based on [this article](https://rshackleton.co.uk/articles/rendering-kentico-cloud-linked-content-items-with-react-components-in-gatsby))
+Rich text elements from Kontent.ai could be resolved to React components using [html-react-parser](https://www.npmjs.com/package/html-react-parser) (based on [this article](https://rshackleton.co.uk/articles/rendering-kentico-cloud-linked-content-items-with-react-components-in-gatsby))
 
 This package should make the usage easier. Basically by loading the rich text data and use these components to provide this data and resolver functions.
 
 > More showcases could be found in [RichTextElement.spec.tsx](./tests/components/rich-text-element/RichTextElement.spec.tsx).
 
 ```tsx
-import { createDeliveryClient, Elements } from '@kentico/kontent-delivery';
-import { isComponent, isLinkedItem, RichTextElement } from '@simply007org/kontent-react-components';
+import { createDeliveryClient, Elements } from '@kontent-ai/delivery-sdk';
+import { isComponent, isLinkedItem, RichTextElement } from '@kontent/react-components';
 import { Element as DomHandlerElement } from 'domhandler';
 
 // ...

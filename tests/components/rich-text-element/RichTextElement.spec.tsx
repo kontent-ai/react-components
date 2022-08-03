@@ -1,6 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { createDeliveryClient, Elements, ElementType } from '@kentico/kontent-delivery';
+import { createDeliveryClient, Elements, ElementType } from '@kontent-ai/delivery-sdk';
 import complexRichTextItem from './complexRichTextItem.json';
 import multiLevelComponentsRichText from './multiLevelComponentsRichText.json';
 import { Element as ParserElement } from 'html-react-parser';

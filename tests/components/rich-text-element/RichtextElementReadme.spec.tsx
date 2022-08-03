@@ -1,4 +1,4 @@
-import { createDeliveryClient, Elements } from '@kentico/kontent-delivery';
+import { createDeliveryClient, Elements } from '@kontent-ai/delivery-sdk';
 import { isComponent, isLinkedItem, RichTextElement } from '../../../src';
 import richTextItem from './complexRichTextItem.json';
 import TestRenderer from 'react-test-renderer';
