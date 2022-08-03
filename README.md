@@ -5,7 +5,7 @@ The package containing React components useful when processing Kontent data to t
 ## Install
 
 ```sh
-npm install @simply007org/kontent-react-components
+npm install @kontent-ai/react-components
 ```
 
 ### Typescript

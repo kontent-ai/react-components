@@ -1,11 +1,11 @@
 {
-  "name": "@simply007org/kontent-react-components",
-  "version": "0.0.9",
-  "description": "The package containing React components useful when processing Kontent data to the site.",
-  "repository": "https://github.com/Simply007/kontent-react-components.git",
-  "homepage": "https://github.com/Simply007/kontent-react-components#readme",
+  "name": "@kontent-ai/react-components",
+  "version": "0.1.0",
+  "description": "The package containing React components useful when processing Kontent.ai data to the site.",
+  "repository": "https://github.com/kontent-ai/react-components.git",
+  "homepage": "https://github.com/kontent-ai/react-components#readme",
   "bugs": {
-    "url": "https://github.com/Simply007/kontent-react-components/issues"
+    "url": "https://github.com/kontent-ai/react-components/issues"
   },
   "author": {
     "name": "Ondřej Chrastina",
@@ -16,7 +16,7 @@
   "main": "dist/index.js",
   "private": false,
   "keywords": [
-    "kontent",
+    "kontent-ai",
     "react",
     "headlesscms",
     "cms",

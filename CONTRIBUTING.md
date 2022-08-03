@@ -65,4 +65,4 @@ Your pull request will now go through extensive checks by the subject matter exp
 ## Code of Conduct
 <img align="right" width="100" height="100" src="https://i.imgur.com/cObdKQy.png">
 
-The Kentico team is committed to fostering a welcoming community, therefore this project has adopted the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). If you have any additional questions or comments, you can contact us directly at devrel@kontent.ai.
+The Kontent.ai team is committed to fostering a welcoming community, therefore this project has adopted the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). If you have any additional questions or comments, you can contact us directly at devrel@kontent.ai.
