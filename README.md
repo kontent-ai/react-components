@@ -1,6 +1,6 @@
 # Kontent.ai's React Components
 
-The package containing React components useful when processing Kontent data to the site.
+The package containing React components useful when processing Kontent.ai's data to the site.
 
 ## Install
 
@@ -77,7 +77,6 @@ const response = await client.item("<YOUR ITEM CODENAME>"))
         }
     }}
 />
-
 ```
 
 ### Multilevel resolving
