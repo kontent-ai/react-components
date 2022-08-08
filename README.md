@@ -22,7 +22,7 @@ This package should make the usage easier. Basically by loading the rich text da
 
 ```tsx
 import { createDeliveryClient, Elements } from '@kontent-ai/delivery-sdk';
-import { isComponent, isLinkedItem, RichTextElement } from '@kontent/react-components';
+import { isComponent, isLinkedItem, RichTextElement } from '@kontent-ai/react-components';
 import { Element as DomHandlerElement } from 'domhandler';
 
 // ...
