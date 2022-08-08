@@ -1,5 +1,5 @@
 import parseHTML, { domToReact, DOMNode, HTMLReactParserOptions } from "html-react-parser";
-import { Elements, IContentItem, IContentItemsContainer, ILink, IRichTextImage } from '@kentico/kontent-delivery';
+import { Elements, IContentItem, ILink, IRichTextImage } from '@kontent-ai/delivery-sdk';
 import { Element as DOMHandlerElement } from "domhandler";
 
 const IMAGE_ID_ATTRIBUTE_IDENTIFIER = "data-image-id";

@@ -10,7 +10,7 @@ Array [
       rel="noopener noreferrer"
       target="_blank"
     >
-      Kentico Kontent
+      Kontent.ai
     </a>
     .
   </p>,
@@ -111,7 +111,7 @@ Array [
       rel="noopener noreferrer"
       target="_blank"
     >
-      Kentico Kontent
+      Kontent.ai
     </a>
     .
   </p>,
@@ -206,7 +206,7 @@ Array [
       rel="noopener noreferrer"
       target="_blank"
     >
-      Kentico Kontent
+      Kontent.ai
     </a>
     .
   </p>,
@@ -325,7 +325,7 @@ Array [
       rel="noopener noreferrer"
       target="_blank"
     >
-      Kentico Kontent
+      Kontent.ai
     </a>
     .
   </p>,
@@ -419,7 +419,7 @@ He also likes OSS. This is his latest repository:
     "summary": {
       "name": "Summary",
       "type": "text",
-      "value": "Example site for Kontent as a source for \\"Will It Build\\". Should/Will be generalized into e.g. a theme."
+      "value": "Example site for Kontent.ai as a source for \\"Will It Build\\". Should/Will be generalized into e.g. a theme."
     },
     "url": {
       "name": "URL",
@@ -503,7 +503,7 @@ On some projects, he was cooperating with
     "url": {
       "name": "URL",
       "type": "text",
-      "value": "https://github.com/Kentico/kontent-gatsby-packages"
+      "value": "https://github.com/kontent-ai/gatsby-packages"
     }
   },
   "system": {
@@ -533,7 +533,7 @@ Array [
       rel="noopener noreferrer"
       target="_blank"
     >
-      Kentico Kontent
+      Kontent.ai
     </a>
     .
   </p>,
