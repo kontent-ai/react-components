@@ -49,3 +49,7 @@ tests/**
 jest.config.js
 renovate.json
 tsconfig.json
+
+.github/ISSUE_TEMPLATE/**
+.github/PULL_REQUEST_TEMPLATE
+.github/workflows/**
