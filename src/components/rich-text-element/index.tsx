@@ -1,3 +1,4 @@
+import React from "react";
 import parseHTML, { domToReact, DOMNode, HTMLReactParserOptions } from "html-react-parser";
 import { Elements, IContentItem, ILink, IRichTextImage } from '@kontent-ai/delivery-sdk';
 import { Element as DOMHandlerElement } from "domhandler";

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<RichTextElement/> readme code samples should resolve without fail 1`] = `
-Array [
+[
   <p>
     This is Ondřej Chrastina - Developer Advocate with 
     <a
