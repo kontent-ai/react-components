@@ -16,9 +16,16 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
+      - name: Extract version from tag
+        id: get_version
+        uses: battila7/get-version-action@v2
+      - run: npm version ${{ steps.get_version.outputs.version-without-v }}
       - run: npm install
       - run: npm run lint
       - run: npm run build:prod
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_API_KEY }}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Adjust release version to ${{ steps.get_version.outputs.version-without-v }}
