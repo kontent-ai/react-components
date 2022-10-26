@@ -19,7 +19,7 @@ jobs:
       - name: Extract version from tag
         id: get_version
         uses: battila7/get-version-action@v2
-      - run: npm version ${{ steps.get_version.outputs.version-without-v }}
+      - run: npm --no-git-tag-version version ${{ steps.get_version.outputs.version-without-v }}
       - run: npm install
       - run: npm run lint
       - run: npm run build:prod
