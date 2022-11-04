@@ -1,27 +1,26 @@
 import React from "react";
-import parseHTML, { domToReact, DOMNode, HTMLReactParserOptions } from "html-react-parser";
+import parseHTML, { domToReact, DOMNode, HTMLReactParserOptions, Element } from "html-react-parser";
 import { Elements, IContentItem, ILink, IRichTextImage } from '@kontent-ai/delivery-sdk';
-import { Element as DOMHandlerElement } from "domhandler";
 
 const IMAGE_ID_ATTRIBUTE_IDENTIFIER = "data-image-id";
 const LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER = "data-item-id";
 
 const isLinkedItem = (domNode: DOMNode): boolean => {
-    if (domNode instanceof DOMHandlerElement) {
+    if (domNode instanceof Element) {
         return domNode.tagName === "object" && domNode.attributes.find(attr => attr.name === "type")?.value === "application/kenticocloud";
     }
     return false;
 }
 
 const isImage = (domNode: DOMNode): boolean => {
-    if (domNode instanceof DOMHandlerElement) {
+    if (domNode instanceof Element) {
         return domNode.tagName === "figure" && domNode.attributes.find(attr => attr.name === IMAGE_ID_ATTRIBUTE_IDENTIFIER)?.value !== "undefined";
     }
     return false;
 }
 
 const isLinkedItemLink = (domNode: DOMNode) => {
-    if (domNode instanceof DOMHandlerElement) {
+    if (domNode instanceof Element) {
         return domNode.tagName === "a" && domNode.attributes.find(attr => attr.name === LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER)?.value !== "undefined";
     }
     return false;
@@ -34,7 +33,7 @@ export type DOMToReactFunction = (
 
 
 export type DomElementOptionsType = {
-    domElement: DOMHandlerElement,
+    domElement: Element,
     domToReact: DOMToReactFunction
 };
 
@@ -73,7 +72,7 @@ const replaceNode = (
     const { images, links } = richTextElement;
     if (resolveLinkedItem && richTextElement.linkedItems) {
         if (isLinkedItem(domNode)) {
-            const node = domNode as DOMHandlerElement;
+            const node = domNode as Element;
             const codeName = node?.attributes.find(attr => attr.name === "data-codename")?.value;
             const linkedItem = codeName ? richTextElement.linkedItems.find(item => item.system.codename === codeName) : undefined;
             return resolveLinkedItem(linkedItem, { domElement: node, domToReact });
@@ -82,7 +81,7 @@ const replaceNode = (
 
     if (resolveImage && images) {
         if (isImage(domNode)) {
-            const node = domNode as DOMHandlerElement;
+            const node = domNode as Element;
             const imageId = node?.attributes.find(attr => attr.name === IMAGE_ID_ATTRIBUTE_IDENTIFIER)?.value;
             const image = images.find((image: { imageId: string }) => image.imageId === imageId);
             if (image) {
@@ -93,7 +92,7 @@ const replaceNode = (
 
     if (resolveLink && links) {
         if (isLinkedItemLink(domNode)) {
-            const node = domNode as DOMHandlerElement;
+            const node = domNode as Element;
 
             const linkId = node?.attributes.find(attr => attr.name === LINKED_ITEM_ID_ATTRIBUTE_IDENTIFIER)?.value;
             const link = links.find((link: { linkId: string }) => link.linkId === linkId);
