@@ -28,7 +28,7 @@ import { Element as DomHandlerElement } from 'domhandler';
 // ...
 
 const client =  createDeliveryClient({
-    projectId: '<YOUR PROJECT ID>'
+    environmentId: '<YOUR ENVIRONMENT ID>'
 });
 
 const response = await client.item("<YOUR ITEM CODENAME>"))
