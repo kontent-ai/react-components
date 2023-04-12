@@ -7,7 +7,7 @@ import { Element as DomHandlerElement } from 'domhandler';
 describe('<RichTextElement/> readme code samples', () => {
 
     var mockClient = createDeliveryClient({
-        projectId: 'dummyClient',
+        environmentId: 'dummyClient',
     });
 
     const response = mockClient.item("dummyItem")

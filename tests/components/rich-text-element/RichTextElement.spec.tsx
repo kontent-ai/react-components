@@ -32,7 +32,7 @@ import { Element as DomHandlerElement } from 'domhandler';
 describe('<RichTextElement/>', () => {
 
   var mockClient = createDeliveryClient({
-    projectId: 'dummyClient',
+    environmentId: 'dummyClient',
   });
 
   const complexItemResponse = mockClient.item("dummyItem")
