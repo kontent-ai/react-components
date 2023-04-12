@@ -1,6 +1,6 @@
 {
   "name": "@kontent-ai/react-components",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "The package containing React components useful when processing Kontent.ai data to the site.",
   "repository": "https://github.com/kontent-ai/react-components.git",
   "homepage": "https://github.com/kontent-ai/react-components#readme",
