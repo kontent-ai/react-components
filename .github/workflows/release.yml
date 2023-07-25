@@ -30,3 +30,4 @@ jobs:
         with:
           commit_message: Adjust release version to ${{ steps.get_version.outputs.version-without-v }}
           branch: ${{ github.event.repository.default_branch }}
+          push_options: '--force'
