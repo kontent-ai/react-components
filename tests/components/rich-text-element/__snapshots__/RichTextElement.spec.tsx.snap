@@ -391,7 +391,8 @@ exports[`<RichTextElement/> Resolve linked items from richText element with rich
     "name": "ondrej.chrastina.tech",
     "sitemapLocations": [],
     "type": "website",
-    "workflowStep": "published"
+    "workflowStep": "published",
+    "workflow": null
   }
 }
   </pre>,
@@ -441,7 +442,8 @@ He also likes OSS. This is his latest repository:
     "name": "Simply007/kontent-gatsby-benchmark",
     "sitemapLocations": [],
     "type": "repository",
-    "workflowStep": "published"
+    "workflowStep": "published",
+    "workflow": null
   }
 }
   </pre>,
@@ -515,7 +517,8 @@ On some projects, he was cooperating with
     "name": "5b76e971-4709-01f2-e8ea-36a9716d7b42",
     "sitemapLocations": [],
     "type": "repository",
-    "workflowStep": null
+    "workflowStep": null,
+    "workflow": null
   }
 }
   </pre>,
